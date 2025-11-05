@@ -1,0 +1,87 @@
+/* WoW Light Theme - Based on Figma Variables */
+:root {
+  /* Brand Colors - WoW Theme (Red) */
+  --color-brand-red: #cc0000;
+  --color-background-brand: #cc0000;
+  --color-border-brand: #cc0000;
+  --color-text-brand: #ffffff;
+  --color-icon-brand: #cc0000;
+
+  /* Action Colors - WoW Theme (Red) */
+  --color-action-primary: #cc0000;
+  --color-action-primary-hover: #b30000;
+  --color-action-primary-foreground: #ffffff;
+  --color-action-disabled: #cad4d9;
+  --color-action-disabled-foreground: #949a9d;
+
+  /* Status Colors */
+  --color-status-success: #1db954;
+  --color-status-warning: #ffa726;
+  --color-status-error: #e00000;
+
+  /* Surface Colors - From Figma */
+  --color-surface-base: #ededed;
+  --color-surface-container: #ffffff;
+  --color-surface-subtle: #fafafa;
+  --color-surface-hover: #f0f0f0;
+  --color-surface-header: #f8f8f8;
+  --color-elevation-surface: #ededed;
+  --color-elevation-raised: #ffffff;
+
+  /* Neutral Colors - From Figma */
+  --color-neutral-text: #000000;
+  --color-neutral-text-subtle: #ada1a1;
+  --color-neutral-border: #2f1c1c24;
+  --color-neutral-border-subtle: #e0e0e0;
+  --color-neutral-border-air: #f0f0f0;
+  --color-neutral-icon-subtle: #988c8c;
+  --color-neutral-surface: #ffffff;
+  
+  /* Neutral Color Scale - From Figma Design Tokens */
+  --color-neutral-300A: #2f1c1c24; /* WoW Light neutral 300A - matches border color */
+  --color-text-default: #000000;
+  --color-text-inverse: #ffffff;
+  --color-icon-default: #3c2626;
+  --color-icon-inverse: #ffffff;
+
+  /* Input Colors - From Figma */
+  --color-background-input: #ffffff;
+  --color-border-input: #2f1c1c24;
+
+  /* Navigation Colors - WoW Light Theme */
+  --color-navigation-background: #ffffff;
+  --color-navigation-border: #e0e0e0;
+  --color-navigation-text: #000000;
+  --color-navigation-text-active: #cc0000;
+  --color-navigation-indicator: #cc0000;
+
+  /* Legacy aliases for backward compatibility */
+  --color-primary: var(--color-action-primary);
+  --color-primary-hover: var(--color-action-primary-hover);
+  --color-primary-foreground: var(--color-action-primary-foreground);
+  --color-text: var(--color-neutral-text);
+  --color-background: var(--color-surface-base);
+
+  /* Additional variables for vehicle selection */
+  --color-accent-light: #e6f4fc; /* wow.cyan.50 */
+  --color-primary-dark: #3c2626; /* wow.neutral.900 */
+  --color-primary-darker: #1B1212; /* Darker background for summary column */
+  --color-info: #0093DD; /* Info/information blue color */
+  
+  /* Badge component variables - from WoW Light design tokens */
+  --component-pictogram-primary: #3c2626; /* Dark brown from wow.neutral.900 */
+  --color-background-disabled: #2f1c1c0f; /* Light brown with opacity from wow.neutral.200A */
+  --color-background-success-bold: #008448; /* Green from wow.green.500 */
+  
+  /* Elevation colors - from WoW Light design tokens */
+  --color-elevation-sunken: #d9d9d9; /* wow.neutral.400 - light gray for active state */
+  --color-elevation-surface: #e6e6e6; /* wow.neutral.300 - medium gray */
+  --color-elevation-raised: #ffffff; /* wow.neutral.0 - white */
+  
+  /* Border colors - from WoW Light design tokens */
+  --color-border-default: #e0e0e0; /* wow.neutral.300A - light border */
+  
+  /* Text colors - from WoW Light design tokens */
+  --color-text-subtlest: #4d4d4d; /* wow.neutral.700 - subtle text */
+  --color-text-disabled: #999999; /* wow.neutral.400A - disabled text */
+}

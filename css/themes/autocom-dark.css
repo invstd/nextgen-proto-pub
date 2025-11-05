@@ -1,0 +1,80 @@
+/* Autocom Dark Theme - Based on Figma Variables */
+:root {
+  /* Brand Colors - Autocom Theme (Blue + Green) */
+  --color-brand-red: #cc0000;
+  --color-brand-blue: #0093dd;
+  --color-brand-green: #3cd2a5;
+  --color-brand-green-border: #63dbb7;
+  --color-background-brand: #3cd2a5;
+  --color-border-brand: #63dbb7;
+  --color-text-brand: #001a3f;
+  --color-icon-brand: #0093dd;
+
+  /* Action Colors */
+  --color-action-primary: #0093dd;
+  --color-action-primary-hover: #007fbf;
+  --color-action-primary-foreground: #fafafa;
+  --color-action-disabled: #cad4d9;
+  --color-action-disabled-foreground: #949a9d;
+
+  /* Status Colors */
+  --color-status-success: #1db954;
+  --color-status-warning: #ffa726;
+  --color-status-error: #e00000;
+
+  /* Surface Colors - Dark Theme */
+  --color-surface-base: #001a3f;
+  --color-surface-container: #ffffff;
+  --color-surface-subtle: #fafafa;
+  --color-surface-hover: #f0f0f0;
+  --color-surface-header: #f8f8f8;
+  --color-elevation-surface: #001a3f;
+  --color-elevation-raised: #ffffff;
+
+  /* Neutral Colors - Dark Theme */
+  --color-neutral-text: #ffffff;
+  --color-neutral-text-subtle: #ada1a1;
+  --color-neutral-border: #2f1c1c24;
+  --color-neutral-border-subtle: #e0e0e0;
+  --color-neutral-border-air: #f0f0f0;
+  --color-neutral-icon-subtle: #988c8c;
+  --color-neutral-surface: #ffffff;
+  --color-text-default: #ffffff;
+  --color-text-inverse: #000000;
+  --color-icon-default: #ffffff;
+  --color-icon-inverse: #000000;
+
+  /* Input Colors */
+  --color-background-input: #ffffff;
+  --color-border-input: #2f1c1c24;
+
+  /* Navigation Colors - Autocom Dark Theme */
+  --color-navigation-background: #06224c;
+  --color-navigation-border: rgba(85, 144, 246, 0.12);
+  --color-navigation-text: #ffffff;
+  --color-navigation-text-active: #3cd2a5;
+  --color-navigation-indicator: #3cd2a5;
+
+  /* Legacy aliases for backward compatibility */
+  --color-primary: var(--color-action-primary);
+  --color-primary-hover: var(--color-action-primary-hover);
+  --color-primary-foreground: var(--color-action-primary-foreground);
+  --color-text: var(--color-neutral-text);
+  --color-background: var(--color-surface-base);
+
+  /* Additional variables for vehicle selection */
+  --color-accent-light: #e9faff; /* autocom.cyan.50 */
+  --color-primary-dark: #092142; /* autocom.neutral.1100 */
+  
+  /* Elevation colors - from WoW Light design tokens */
+  --color-elevation-sunken: #d9d9d9; /* wow.neutral.400 - light gray for active state */
+  --color-elevation-surface: #e6e6e6; /* wow.neutral.300 - medium gray */
+  --color-elevation-raised: #ffffff; /* wow.neutral.0 - white */
+  
+  /* Border colors - from WoW Light design tokens */
+  --color-border-default: #e0e0e0; /* wow.neutral.300A - light border */
+  
+  /* Text colors - from WoW Light design tokens */
+  --color-text-subtlest: #4d4d4d; /* wow.neutral.700 - subtle text */
+  --color-text-disabled: #999999; /* wow.neutral.400A - disabled text */
+}

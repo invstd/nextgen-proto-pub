@@ -1,0 +1,154 @@
+@import 'variables.css';
+@import 'vehicle-selection.css';
+@import 'vci-indicator.css';
+@import 'ai-assistant.css';
+
+/* Reset and base styles */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family-secondary);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--color-neutral-text);
+  background-color: var(--color-surface-base);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  color: var(--color-action-primary);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Buttons - Based on Figma Design System */
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 11px 20px;
+  border: none;
+  border-radius: var(--border-radius-md);
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  line-height: var(--font-size-base);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  height: 42px;
+  box-sizing: border-box;
+}
+
+/* Filled Button - Solid background */
+.button--filled {
+  background-color: var(--color-action-primary);
+  color: var(--color-text-inverse);
+  border: 1px solid var(--color-action-primary);
+}
+
+.button--filled:hover {
+  background-color: var(--color-action-primary-hover);
+  border-color: var(--color-action-primary-hover);
+  transform: translateY(-1px);
+}
+
+/* Outlined Button - Border only */
+.button--outlined {
+  background-color: transparent;
+  color: var(--color-action-primary);
+  border: 1.25px solid var(--color-action-primary);
+}
+
+.button--outlined:hover {
+  background-color: var(--color-action-primary);
+  color: var(--color-text-inverse);
+  transform: translateY(-1px);
+}
+
+/* Text Button - No background/border */
+.button--text {
+  background-color: transparent;
+  color: var(--color-action-primary);
+  border: none;
+  padding: 11px 0;
+}
+
+.button--text:hover {
+  background-color: var(--color-surface-hover);
+  transform: translateY(-1px);
+}
+
+/* Disabled State */
+.button--disabled {
+  background-color: var(--color-action-disabled);
+  color: var(--color-action-disabled-foreground);
+  border: 1px solid var(--color-action-disabled);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.button--disabled:hover {
+  background-color: var(--color-action-disabled);
+  color: var(--color-action-disabled-foreground);
+  transform: none;
+  opacity: 0.6;
+}
+
+/* Icon support */
+.button .icon {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
+/* Custom Scrollbar Styles - Matches WoW Light Theme */
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-neutral-border-subtle, #d0d0d0) var(--color-neutral-border-air, #f0f0f0);
+}
+
+/* Webkit browsers (Chrome, Safari, Edge) */
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--color-neutral-border-air, #f0f0f0);
+  border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--color-neutral-border-subtle, #d0d0d0);
+  border-radius: 4px;
+  border: 2px solid var(--color-neutral-border-air, #f0f0f0);
+  transition: background 0.2s ease;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--color-neutral-icon-subtle, #988c8c);
+}
+
+*::-webkit-scrollbar-thumb:active {
+  background: var(--color-action-primary, #cc0000);
+}
+
+/* Thin scrollbar for horizontal scrolling */
+*::-webkit-scrollbar:horizontal {
+  height: 6px;
+}
+
+*::-webkit-scrollbar-thumb:horizontal {
+  border-width: 1px;
+}

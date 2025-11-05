@@ -1,0 +1,148 @@
+/* Selection Tile Container */
+.selection-tile-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* Space between tiles when stacked */
+}
+
+/* Selection Tile Component - Based on Figma Design */
+.selection-tile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 64px;
+  padding: 0 8px 0 16px;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  width: 100%; /* Take full width of container */
+  border-radius: var(--border-radius-md);
+}
+
+/* Small variant for selection tiles */
+.selection-tile--small {
+  height: 48px;
+  padding: 0 var(--spacing-md); /* 16px left and right padding */
+  gap: 0; /* No gap needed since only content */
+}
+
+/* Small variant content styling */
+.selection-tile--small .selection-tile__content {
+  justify-content: space-between; /* Label left, subtext right */
+  align-items: center; /* Vertical centering */
+}
+
+.selection-tile__content {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 0;
+  min-height: 1px;
+}
+
+.selection-tile__label {
+  font-family: var(--font-family-display);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-base); /* 16px */
+  line-height: var(--font-size-base); /* 16px line height */
+  letter-spacing: 0px;
+  color: var(--color-text-default, #000000);
+  margin: 0;
+}
+
+.selection-tile__subtext {
+  font-family: var(--font-family-body);
+  font-weight: 400;
+  font-size: var(--font-size-base); /* 16px - same as label */
+  line-height: var(--font-size-base); /* 16px line height */
+  letter-spacing: 0px;
+  color: var(--color-text-subtlest, #4d4d4d);
+  margin: 0;
+}
+
+/* Small variant typography */
+.selection-tile--small .selection-tile__label {
+  font-size: var(--font-size-sm); /* 14px */
+  line-height: var(--font-size-sm); /* 14px line height */
+}
+
+.selection-tile--small .selection-tile__subtext {
+  font-size: var(--font-size-sm); /* 14px */
+  line-height: var(--font-size-sm); /* 14px line height */
+}
+
+.selection-tile__chevron {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.selection-tile__chevron svg {
+  width: 100%;
+  height: 100%;
+  stroke: currentColor;
+}
+
+/* Selection Tile States - Using WoW Light theme colors */
+.selection-tile--completed {
+  border-bottom: 1px solid var(--color-border-default, #e0e0e0);
+}
+
+.selection-tile--completed:hover {
+  background: var(--color-elevation-sunken, #f0f0f0);
+}
+
+.selection-tile--active {
+  background: var(--color-elevation-sunken, #f0f0f0);
+}
+
+.selection-tile--disabled {
+  border-bottom: 1px solid var(--color-border-default, #e0e0e0);
+  cursor: not-allowed;
+}
+
+/* Small variant states - different styling */
+.selection-tile--small {
+  background: var(--color-surface-subtle, #fafafa); /* Default subtle background for visibility */
+}
+
+.selection-tile--small.selection-tile--completed {
+  /* Use default subtle background from .selection-tile--small */
+  border-bottom: none; /* Remove border for small variant */
+}
+
+.selection-tile--small.selection-tile--active {
+  background: var(--color-elevation-sunken); /* Light gray background */
+}
+
+.selection-tile--small.selection-tile--disabled {
+  background: var(--color-elevation-raised); /* White background */
+  border-bottom: none; /* Remove border for small variant */
+  cursor: not-allowed;
+}
+
+/* Small tiles should be clickable when not disabled */
+.selection-tile--small:not(.selection-tile--disabled) {
+  cursor: pointer;
+}
+
+.selection-tile--small:not(.selection-tile--disabled):hover {
+  background: var(--color-elevation-sunken);
+}
+
+.selection-tile--disabled .selection-tile__label {
+  color: var(--color-text-disabled, #999999);
+}
+
+.selection-tile--disabled .selection-tile__subtext {
+  color: var(--color-text-disabled, #999999);
+}
+
+.selection-tile--disabled .selection-tile__chevron {
+  color: var(--color-text-disabled, #999999);
+}

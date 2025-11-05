@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theme Test</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Note: Using Work Sans font for display text -->
+    <!-- Theme switching - change href to switch themes -->
+    <link rel="stylesheet" href="/css/themes/wow-light.css">
+    <!-- Available themes:
+         /css/themes/wow-light.css - WoW Light (Red theme)
+         /css/themes/autocom-dark.css - Autocom Dark (Blue + Green theme)
+         /css/themes/wow-light-inv.css - WoW Light Inverse (Red reserved for errors)
+    -->
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/badge.css">
+    <link rel="stylesheet" href="/css/selection-tile.css">
+    <link rel="stylesheet" href="/css/password-gate.css">
+</head>
+<body>
+    <!-- Password Gate - Shows before main content if not authenticated -->
+<div class="password-gate" id="password-gate">
+  <div class="password-gate__container">
+    <!-- Language Selector -->
+    <div class="password-gate__language-selector">
+      <div class="language-selector">
+  <button class="language-selector__button" id="language-selector-btn" aria-label="Select language" aria-haspopup="true" aria-expanded="false">
+    <span class="language-selector__current" id="language-selector-current">English</span>
+    <svg class="language-selector__icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+  <div class="language-selector__dropdown" id="language-selector-dropdown" role="menu" aria-hidden="true">
+    <button class="language-selector__option" data-lang="en" role="menuitem">
+      <span class="language-selector__option-label">English</span>
+      <svg class="language-selector__check" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M13 4L6 11L3 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <button class="language-selector__option" data-lang="de" role="menuitem">
+      <span class="language-selector__option-label">Deutsch</span>
+      <svg class="language-selector__check" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M13 4L6 11L3 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <button class="language-selector__option" data-lang="no" role="menuitem">
+      <span class="language-selector__option-label">Norsk</span>
+      <svg class="language-selector__check" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M13 4L6 11L3 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+
+    </div>
+    
+    <div class="password-gate__content">
+      <div class="password-gate__icon">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C8.13 2 5 5.13 5 9V11H4C3.45 11 3 11.45 3 12V20C3 20.55 3.45 21 4 21H20C20.55 21 21 20.55 21 20V12C21 11.45 20.55 11 20 11H19V9C19 5.13 15.87 2 12 2ZM12 4C14.76 4 17 6.24 17 9V11H7V9C7 6.24 9.24 4 12 4ZM5 13H19V19H5V13Z" fill="currentColor"/>
+        </svg>
+      </div>
+      <h1 class="password-gate__title" data-i18n="passwordGate.title">Enter Password</h1>
+      <p class="password-gate__description" data-i18n="passwordGate.description">This prototype is password protected. Please enter the password to continue.</p>
+      <form class="password-gate__form" id="password-form">
+        <div class="password-gate__input-group">
+          <input 
+            type="password" 
+            id="password-input" 
+            class="password-gate__input" 
+            data-i18n-placeholder="passwordGate.placeholder"
+            placeholder="Password"
+            autocomplete="off"
+            required
+            aria-label="Password"
+          >
+          <button type="submit" class="password-gate__submit button button--filled button--disabled" id="password-submit-btn" disabled>
+            <span data-i18n="passwordGate.submit">Enter</span>
+          </button>
+        </div>
+        <p class="password-gate__error" id="password-error" role="alert" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+    <div class="app-bar">
+    <div class="app-bar__headline">
+        <div class="app-bar__icon">
+            <img src="/assets/icons/nav-vehicle.svg" alt="Vehicle" width="24" height="24">
+        </div>
+        <h1 class="app-bar__title" data-i18n="appBar.vehicleSelection">Vehicle selection</h1>
+    </div>
+    <div class="app-bar__vci-indicator">
+        
+        <!-- VCI Indicator Component -->
+<!-- States: no-vci, connecting, connected, low-battery, diagnostics -->
+<!-- Optional: showLabel (true/false) to display status label -->
+<div class="vci-indicator vci-indicator--no-vci vci-indicator--with-label">
+  
+    <!-- Status Label (positioned first) -->
+    <div class="vci-indicator__label">
+      
+        <span data-i18n="vci.noVci">No VCI</span>
+      
+    </div>
+  
+
+  
+    <!-- No VCI State (Default) -->
+    <img src="/assets/icons/Status=No VCI.svg" alt="VCI Not Connected" class="vci-indicator__svg">
+
+  
+</div>
+
+    </div>
+</div>
+
+
+    <div class="vehicle-selection__content">
+        <nav class="navigation">
+    <div class="navigation__container">
+        <a href="#" class="navigation__item navigation__item--active">
+            <svg class="navigation__icon" width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M7.14372 12.3218L7.26475 12.3818L7.37065 12.4568L7.46142 12.5318L7.53707 12.6219L7.59758 12.7269L7.64296 12.8319L7.67322 12.9519L7.67322 13.072L7.67322 13.207L7.64296 13.327L7.59758 13.4471L7.53707 13.5521L7.46142 13.6421L7.38578 13.7171L7.29501 13.7921L7.18911 13.8522L7.06808 13.8972L6.94705 13.9272L6.81089 13.9272C6.64448 13.9272 6.49319 13.9272 6.32678 13.9272C6.19062 13.9272 6.05446 13.9272 5.91831 13.9272L5.52496 13.9272L5.31316 13.9272L4.90469 13.9272L4.79879 13.9272L4.58699 13.9272L4.48109 13.9272L4.37519 13.9272L4.26929 13.9272L4.10287 13.9272L3.95159 13.8822L3.81543 13.8372L3.6944 13.7771L3.5885 13.6871L3.51286 13.5821L3.45234 13.4621L3.40696 13.327L3.3767 13.177L3.3767 13.012L3.3767 12.9669L3.3767 12.9219L3.3767 12.8769L3.3767 12.8319L3.3767 12.7869L3.3767 12.7419L3.3767 12.6969L3.3767 12.6069L3.3767 12.5618L3.3767 12.4718L3.39183 12.3818L3.39183 12.3068L3.43722 12.2318L3.46747 12.1567L3.49773 12.0817L3.54312 12.0217L3.5885 11.9617L3.63389 11.9017L3.6944 11.8567L3.75492 11.8117L3.81543 11.7817L3.87595 11.7516L3.95159 11.7216L4.02723 11.7216L4.10287 11.6916L4.17852 11.6916L4.25416 11.6916L4.3298 11.6916L4.40545 11.7066L4.57186 11.7366L4.73828 11.7666L4.90469 11.7967L5.0711 11.8267L5.23752 11.8567L5.40393 11.8867L5.57035 11.9167L5.73676 11.9467L5.90318 11.9767L6.06959 12.0067L6.79576 12.1717L6.82602 12.1717L6.85628 12.1717L6.88654 12.1717L6.91679 12.1717L6.94705 12.1717L6.97731 12.1717L7.00756 12.1717L7.03782 12.1717L7.06808 12.1717L7.09834 12.1717L7.23449 12.2168L7.14372 12.3218ZM9.36762 12.6069L14.7837 12.6069L14.8593 12.6219L14.9198 12.6519L14.9803 12.6819L15.0257 12.7269L15.0711 12.7719L15.1014 12.8319L15.1316 12.8919L15.1316 12.9669L15.1467 13.042L15.1467 13.5521L15.1316 13.6271L15.1014 13.6871L15.0711 13.7471L15.0257 13.7921L14.9803 13.8372L14.9198 13.8672L14.8593 13.8972L14.7837 13.8972L14.708 13.9272L9.29198 13.9272L9.23147 13.8972L9.17095 13.8672L9.11044 13.8372L9.06505 13.7921L9.01967 13.7471L8.98941 13.6871L8.95915 13.6271L8.95915 13.5521L8.94402 13.4771L8.94402 12.9669L8.95915 12.8919L8.98941 12.8319L9.01967 12.7719L9.06505 12.7269L9.11044 12.6819L9.17095 12.6519L9.23147 12.6219L9.29198 12.6219L9.36762 12.6069ZM7.71861 6.35033L16.357 6.35033L16.5537 6.35033L16.7352 6.38034L16.8865 6.42535L17.0227 6.48536L17.1437 6.56038L17.2496 6.66541L17.3404 6.78544L17.4312 6.93547L17.5068 7.10051L17.5673 7.29556L17.6278 7.50561L17.6884 7.71566L17.7489 7.92571L17.8094 8.13576L17.8699 8.34582L17.9304 8.55587L17.9909 8.76592L18.0514 8.97597L18.112 9.18602L18.1725 9.39607L18.1725 9.41108L18.1725 9.42608L18.1725 9.44108L18.1725 9.45609L18.1725 9.47109L5.63086 9.47109L6.00908 8.2708L6.05446 8.13576L6.09985 8.00073L6.14523 7.8657L6.19062 7.73067L6.23601 7.59563L6.28139 7.4606L6.32678 7.32557L6.37216 7.20554L6.41755 7.08551L6.46294 6.96548L6.50832 6.84545L6.56884 6.74042L6.64448 6.6354L6.72012 6.54538L6.81089 6.47036L6.90166 6.41034L7.00756 6.36533L7.11347 6.32032L7.23449 6.29031L7.35552 6.29031L7.38578 6.27531L7.41604 6.27531L7.44629 6.27531L7.47655 6.27531L7.50681 6.27531L7.55219 6.27531L7.58245 6.27531L7.62784 6.27531L7.71861 6.35033ZM19.534 11.7366L19.6097 11.7366L19.7005 11.7066L19.7761 11.7066L19.8517 11.7066L19.9274 11.7066L20.003 11.7216L20.0787 11.7216L20.1543 11.7667L20.2148 11.7967L20.2753 11.8267L20.3359 11.8717L20.3964 11.9167L20.4418 11.9767L20.4871 12.0367L20.5325 12.0967L20.5628 12.1717L20.593 12.2468L20.6233 12.3218L20.6233 12.3968L20.6536 12.4868L20.6536 12.5768L20.6536 12.6219L20.6536 12.6669L20.6536 12.7119L20.6536 12.8169L20.6536 12.8619L20.6536 12.9069L20.6536 12.9519L20.6536 12.9969L20.6536 13.042L20.6536 13.192L20.6082 13.327L20.5628 13.4471L20.5023 13.5521L20.4266 13.6421L20.3359 13.7171L20.23 13.7771L20.1089 13.8222L19.9728 13.8522L19.8215 13.8522C19.6551 13.8672 19.5038 13.8672 19.3374 13.8672L19.171 13.8672L19.1256 13.8672L19.0802 13.8672L19.0348 13.8672L18.9592 13.8672L18.9138 13.8672L18.5053 13.8672L18.1271 13.8672L17.8548 13.8672L17.764 13.8672L17.4917 13.8672L17.4009 13.8672L17.3101 13.8672L17.2194 13.8672L17.1135 13.8672L17.0076 13.8372L16.9168 13.8071L16.826 13.7621L16.7352 13.7021L16.6596 13.6421L16.584 13.5671L16.5234 13.4921L16.4781 13.402L16.4478 13.312L16.4175 13.207L16.4175 13.102L16.4175 12.9969L16.4175 12.8919L16.4478 12.7869L16.4781 12.6969L16.5234 12.6069L16.584 12.5318L16.6596 12.4568L16.7352 12.3968L16.7655 12.3968L16.7958 12.3518L16.826 12.3518L16.8563 12.3068L16.9017 12.3068L16.947 12.2768L16.9924 12.2768L17.0378 12.2468L17.0832 12.2468L17.1286 12.2168C17.9304 12.0367 18.7322 11.8567 19.534 11.6916L19.534 11.7366ZM21.8487 8.52586L21.879 8.61588L21.879 8.63089L21.8941 8.64589L21.8941 8.66089L21.9092 8.6759L21.9092 8.6909L21.9244 8.7059L21.9244 8.72091L21.9395 8.73591L21.9395 8.75091L21.9546 8.76592L21.9849 8.87094L21.9849 8.97597L22 9.08099L22 9.17102L21.9546 9.26104L21.9092 9.33606L21.8487 9.41108L21.7731 9.47109L21.6823 9.53111L21.5764 9.57612L21.4402 9.62113L21.3041 9.66614L21.1679 9.71115L21.0318 9.75616L20.8956 9.80117L20.7595 9.84618L20.6233 9.89119L20.4871 9.9362L20.351 9.98121L20.2148 10.0262L20.1846 10.0262L20.1543 10.0262L20.1241 10.0262L20.0787 10.0412L20.0484 10.0412L20.0182 10.0862L20.0484 10.0862L20.0787 10.0862L20.1089 10.0862L20.1392 10.0862L20.1694 10.0862L20.2753 10.1763L20.3812 10.2663L20.4871 10.3563L20.593 10.4463L20.6989 10.5364L20.8048 10.6264L20.9107 10.7164L21.0166 10.8064L21.1225 10.8964L21.2284 10.9865L21.3192 11.0765L21.3949 11.1665L21.4554 11.2565L21.5159 11.3465L21.5613 11.4516L21.6067 11.5566L21.6369 11.6616L21.6369 11.7667L21.6672 11.8867L21.6672 12.0067L21.6672 17.6781L21.6672 17.7981L21.6369 17.9031L21.6067 17.9932L21.5613 18.0832L21.5008 18.1582L21.4251 18.2182L21.3495 18.2632L21.2587 18.2932L21.1528 18.2932L21.0318 18.3232C20.3207 18.3232 19.5946 18.3232 18.8835 18.3232L18.7625 18.3232L18.6566 18.2932L18.5658 18.2632L18.4902 18.2182L18.4145 18.1582L18.354 18.0832L18.3086 17.9932L18.2784 17.9031L18.2784 17.7981L18.2481 17.6781L18.2481 17.5281L18.2481 17.453L18.2481 17.378L18.2481 17.303L18.2481 17.228L18.2481 17.153L18.2481 17.0029L18.2481 16.9279C18.2481 16.8679 18.2481 16.7929 18.2481 16.7329L18.2481 16.6878L18.2481 16.6578L18.2481 16.6278L18.233 16.5978L18.233 16.5828L18.2027 16.5678L18.1725 16.5678L18.1422 16.5528L18.112 16.5528L18.0666 16.5528L18.0514 16.5528L18.0212 16.5528L18.0061 16.5528L17.9909 16.5528L5.85779 16.5528L5.79728 16.5528L5.75189 16.5528L5.72163 16.5678L5.69138 16.5678L5.67625 16.6128L5.67625 16.6428L5.66112 16.6878L5.66112 16.7479L5.66112 16.8229L5.66112 17.0479L5.66112 17.0929L5.66112 17.273L5.66112 17.378L5.66112 17.498L5.66112 17.6031L5.66112 17.6631L5.66112 17.7231L5.66112 17.7831L5.66112 17.8431L5.63086 17.9482L5.58548 18.0532L5.52496 18.1432L5.47958 18.1882L5.34342 18.2632L5.2829 18.2632L5.11649 18.3082C4.37519 18.3082 3.63389 18.3082 2.89259 18.3082L2.78669 18.3082L2.69591 18.2782L2.60514 18.2482L2.5295 18.2032L2.46899 18.1432L2.40847 18.0832L2.36309 18.0082L2.33283 17.9181L2.30257 17.8281L2.30257 17.7231L2.30257 17.6181C2.30257 15.7876 2.30257 13.9572 2.30257 12.1417L2.30257 12.0067L2.3177 11.8717L2.34796 11.7366L2.37822 11.6166L2.4236 11.4966L2.48412 11.3766L2.54463 11.2715L2.62027 11.1665L2.71104 11.0615L2.81694 10.9715L2.92284 10.8814L3.02874 10.7914L3.13465 10.7014L3.24055 10.6114L3.34644 10.5063L3.45234 10.4013L3.55824 10.2963L3.66414 10.1913L3.77005 10.0862L3.87595 9.98121L3.75492 9.9362L3.52799 9.86118L3.31619 9.78617L3.2708 9.78617L3.059 9.69614L2.99849 9.69614L2.78669 9.60612L2.75643 9.60612L2.68079 9.57612L2.57489 9.54611L2.5295 9.54611L2.43873 9.5011L2.34796 9.47109L2.25719 9.42608L2.18154 9.36606L2.12103 9.30605L2.07564 9.23103L2.03026 9.15601L2 9.06599L2 8.97597L2 8.88595L2.04539 8.6909L2.04539 8.66089L2.06051 8.63088L2.06051 8.60088L2.07564 8.57087L2.07564 8.54086L2.09077 8.51086L2.09077 8.48085L2.1059 8.45084L2.1059 8.42083L2.12103 8.39083L2.15129 8.3008L2.19667 8.22579L2.24206 8.16577L2.30257 8.10576L2.36309 8.06075L2.4236 8.03074L2.49924 8.00073L2.57489 8.00073L2.65053 7.97072L2.7413 7.97072L2.93797 7.97072L3.13465 7.97072L3.33132 7.97072L3.52799 7.97072L3.72466 7.97072L3.92133 7.97072L4.118 7.97072L4.31467 7.97072L4.51135 7.97072L4.70802 7.97072L4.76853 7.97072L4.81392 7.97072L4.8593 7.97072L4.90469 7.97072L4.93495 7.94072L4.9652 7.91071L4.99546 7.8807L5.02572 7.83569L5.02572 7.79068L5.0711 7.73067L5.13162 7.53562L5.19213 7.34057L5.25265 7.14552L5.31316 6.95047L5.37368 6.75543L5.43419 6.56038L5.49471 6.36533L5.55522 6.18529L5.61573 5.99024L5.67625 5.8102L5.73676 5.66016L5.8124 5.52513L5.90318 5.4051L6.00908 5.30007L6.11498 5.21005L6.23601 5.13503L6.37216 5.07502L6.52345 5.03001L6.67474 5L6.84115 5L17.1286 5L17.3253 5L17.5068 5.03001L17.6732 5.07502L17.8245 5.13503L17.9607 5.22505L18.0817 5.33008L18.1876 5.45011L18.2784 5.60015L18.354 5.76519L18.4145 5.96023L18.475 6.14028L18.5356 6.32032L18.5961 6.50037L18.6566 6.68041L18.7171 6.86045L18.7776 7.0405L18.8381 7.22054L18.8986 7.40059L18.9592 7.58063L19.0197 7.76067L19.0197 7.80568L19.0499 7.83569L19.0499 7.8657L19.0802 7.89571L19.0802 7.91071L19.1256 7.91071L19.1558 7.91071L19.1861 7.92571L19.2163 7.92571L19.2617 7.92571L19.4584 7.92571L19.6551 7.92571L20.0484 7.92571L20.2451 7.92571L20.4418 7.92571L20.6384 7.92571L20.8351 7.92571L21.0318 7.92571L21.2284 7.92571L21.3192 7.92571L21.41 7.92571L21.4856 7.95572L21.5613 7.98573L21.6369 8.03074L21.6974 8.07575L21.7579 8.13576L21.8033 8.21078L21.8487 8.2858L21.8487 8.52586Z" fill="currentColor"/>
+            </svg>
+                <span class="navigation__label" data-i18n="nav.vehicle">Vehicle</span>
+            </a>
+            <a href="#" class="navigation__item">
+                <svg class="navigation__icon" width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19.2107 5.63153H5.31596C4.89415 5.63153 4.4987 5.51871 4.15813 5.32176V20.6839C4.15813 21.3236 4.67645 21.842 5.31596 21.842H19.2107V5.63153ZM20.1992 4.64311C20.3038 4.74798 20.3686 4.89278 20.3686 5.05251V22.421C20.3686 22.7408 20.1094 23 19.7898 23H5.31586C4.03705 23 3 21.9635 3 20.6841V3.31566C3 2.0365 4.03705 1 5.31586 1H18.6315C18.9514 1 19.2105 1.25917 19.2105 1.57882V4.47369H19.7896C19.9493 4.47369 20.0943 4.53843 20.1992 4.64311ZM18.0528 4.47379V2.15793H5.31576C4.67625 2.15793 4.15793 2.67606 4.15793 3.31576C4.15793 3.95547 4.67625 4.47379 5.31576 4.47379H18.0528Z" fill="currentColor"/>
+                    <path d="M11.2294 15.5263C11.2294 14.7447 11.2959 14.1827 11.4289 13.8401C11.5619 13.4976 11.844 13.1237 12.2752 12.7184C12.6514 12.3711 12.9381 12.0695 13.1353 11.8138C13.3326 11.5581 13.4312 11.2662 13.4312 10.9382C13.4312 10.5425 13.305 10.2145 13.0528 9.95395C12.8005 9.69342 12.4495 9.56316 12 9.56316C11.5321 9.56316 11.1766 9.71272 10.9335 10.0118C10.6904 10.311 10.5183 10.6149 10.4174 10.9237L9 10.2868C9.19266 9.6693 9.54587 9.13377 10.0596 8.68026C10.5734 8.22675 11.2202 8 12 8C12.9633 8 13.7041 8.28224 14.2225 8.84671C14.7408 9.41118 15 10.089 15 10.8803C15 11.3627 14.9014 11.7752 14.7041 12.1178C14.5069 12.4603 14.1972 12.8487 13.7752 13.2829C13.3257 13.7364 13.0528 14.0814 12.9564 14.3178C12.8601 14.5542 12.8119 14.957 12.8119 15.5263H11.2294ZM12 19C11.6972 19 11.4381 18.8866 11.2225 18.6599C11.0069 18.4331 10.8991 18.1605 10.8991 17.8421C10.8991 17.5237 11.0069 17.2511 11.2225 17.0243C11.4381 16.7976 11.6972 16.6842 12 16.6842C12.3028 16.6842 12.5619 16.7976 12.7775 17.0243C12.9931 17.2511 13.1009 17.5237 13.1009 17.8421C13.1009 18.1605 12.9931 18.4331 12.7775 18.6599C12.5619 18.8866 12.3028 19 12 19Z" fill="currentColor"/>
+                </svg>
+                <span class="navigation__label" data-i18n="nav.manuals">Manuals</span>
+            </a>
+            <a href="#" class="navigation__item">
+                <svg class="navigation__icon" width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14.6386 20.4153L10.7348 16.5115L11.7886 15.4577L14.6386 18.3077L20.3079 12.6384L21.3617 13.6923L14.6386 20.4153ZM19.6386 10.8461H18.1386V6.15385C18.1386 6.07691 18.1066 6.00639 18.0425 5.94227C17.9784 5.87817 17.9079 5.84612 17.8309 5.84612H15.6386V8.46147H6.63867V5.84612H4.44637C4.36944 5.84612 4.29891 5.87817 4.2348 5.94227C4.1707 6.00639 4.13865 6.07691 4.13865 6.15385V19.5384C4.13865 19.6153 4.1707 19.6859 4.2348 19.75C4.29891 19.8141 4.36944 19.8461 4.44637 19.8461H10.1386V21.3461H4.44637C3.94766 21.3461 3.5217 21.1695 3.1685 20.8163C2.81528 20.4631 2.63867 20.0371 2.63867 19.5384V6.15385C2.63867 5.65513 2.81528 5.22917 3.1685 4.87597C3.5217 4.52275 3.94766 4.34614 4.44637 4.34614H8.85215C8.99061 3.85898 9.27362 3.45515 9.70117 3.13465C10.1287 2.81413 10.6079 2.65387 11.1386 2.65387C11.6899 2.65387 12.1768 2.81413 12.5992 3.13465C13.0216 3.45515 13.3021 3.85898 13.4405 4.34614H17.8309C18.3296 4.34614 18.7556 4.52275 19.1088 4.87597C19.462 5.22917 19.6386 5.65513 19.6386 6.15385V10.8461ZM11.1386 5.96152C11.3963 5.96152 11.6114 5.8753 11.7838 5.70287C11.9563 5.53044 12.0425 5.31537 12.0425 5.05767C12.0425 4.79999 11.9563 4.58493 11.7838 4.4125C11.6114 4.24006 11.3963 4.15385 11.1386 4.15385C10.881 4.15385 10.6659 4.24006 10.4935 4.4125C10.321 4.58493 10.2348 4.79999 10.2348 5.05767C10.2348 5.31537 10.321 5.53044 10.4935 5.70287C10.6659 5.8753 10.881 5.96152 11.1386 5.96152Z" fill="currentColor"/>
+                </svg>
+                <span class="navigation__label" data-i18n="nav.reports">Reports</span>
+            </a>
+        <a href="#" class="navigation__item">
+            <svg class="navigation__icon" width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10.401 22C10.1648 22 9.96035 21.9207 9.78762 21.7621C9.61488 21.6036 9.51097 21.4062 9.47588 21.17L9.17022 18.7935C8.88817 18.699 8.59903 18.5668 8.3028 18.3968C8.00657 18.2267 7.74172 18.0445 7.50824 17.8502L5.30987 18.7773C5.0845 18.8758 4.86081 18.8873 4.63881 18.8117C4.41681 18.7361 4.24238 18.5944 4.11552 18.3866L2.53257 15.6296C2.41245 15.4217 2.37533 15.1997 2.42123 14.9636C2.46711 14.7274 2.58519 14.5371 2.77547 14.3927L4.67831 12.9535C4.65402 12.7969 4.63681 12.6397 4.62668 12.4818C4.61656 12.3239 4.6115 12.1667 4.6115 12.0101C4.6115 11.8603 4.61656 11.7082 4.62668 11.5536C4.63681 11.3991 4.65402 11.2301 4.67831 11.0466L2.77547 9.60726C2.58519 9.46287 2.46542 9.27259 2.41618 9.03641C2.36691 8.80025 2.40571 8.57826 2.53257 8.37044L4.11552 5.63364C4.24238 5.42582 4.41513 5.28411 4.63376 5.20853C4.85238 5.13296 5.07437 5.14443 5.29974 5.24296L7.49811 6.15996C7.75183 5.95887 8.02275 5.77499 8.31088 5.60833C8.59902 5.44164 8.88209 5.30769 9.16009 5.20648L9.47588 2.82998C9.51097 2.5938 9.61488 2.39643 9.78762 2.23787C9.96035 2.07929 10.1648 2 10.401 2H13.5892C13.8254 2 14.0315 2.07929 14.2076 2.23787C14.3837 2.39643 14.4893 2.5938 14.5244 2.82998L14.8301 5.21661C15.1459 5.33132 15.4316 5.46525 15.6874 5.61843C15.9431 5.77161 16.2012 5.95212 16.4617 6.15996L18.7006 5.24296C18.9259 5.14443 19.1479 5.13127 19.3665 5.20348C19.5852 5.27568 19.7579 5.41568 19.8848 5.62351L21.4677 8.37044C21.5946 8.57826 21.6334 8.80025 21.5841 9.03641C21.5349 9.27259 21.4151 9.46287 21.2248 9.60726L19.2815 11.0769C19.3193 11.2469 19.3399 11.4059 19.3432 11.5536C19.3466 11.7014 19.3483 11.8502 19.3483 12C19.3483 12.1431 19.3449 12.2885 19.3382 12.4362C19.3314 12.584 19.3071 12.753 19.2653 12.9433L21.1884 14.3927C21.3787 14.5371 21.4984 14.7274 21.5477 14.9636C21.597 15.1997 21.5582 15.4217 21.4313 15.6296L19.8483 18.3704C19.7215 18.5782 19.5443 18.7209 19.317 18.7985C19.0896 18.8761 18.8632 18.8657 18.6378 18.7672L16.4617 17.84C16.2012 18.0479 15.9354 18.2318 15.6641 18.3917C15.3928 18.5516 15.1148 18.6822 14.8301 18.7834L14.5244 21.17C14.4893 21.4062 14.3837 21.6036 14.2076 21.7621C14.0315 21.9207 13.8254 22 13.5892 22H10.401ZM10.9475 20.4211H13.0163L13.3949 17.6012C13.932 17.4609 14.4229 17.2615 14.8676 17.003C15.3122 16.7446 15.741 16.4123 16.154 16.0061L18.7694 17.1053L19.8058 15.3158L17.5224 13.5951C17.6101 13.3225 17.6699 13.0553 17.7016 12.7935C17.7333 12.5317 17.7491 12.2672 17.7491 12C17.7491 11.7261 17.7333 11.4615 17.7016 11.2065C17.6699 10.9514 17.6101 10.691 17.5224 10.4251L19.8261 8.6842L18.7896 6.89472L16.1439 8.01012C15.7917 7.63359 15.3696 7.30093 14.8777 7.01214C14.3858 6.72334 13.8881 6.51888 13.3848 6.39878L13.0528 3.57893H10.9637L10.6155 6.38864C10.0784 6.5155 9.58246 6.70984 9.12767 6.97164C8.67288 7.23345 8.23901 7.57084 7.82606 7.98381L5.21066 6.89472L4.17421 8.6842L6.4475 10.3785C6.35978 10.6282 6.29838 10.888 6.26329 11.1579C6.2282 11.4278 6.21066 11.7119 6.21066 12.0101C6.21066 12.2841 6.2282 12.5526 6.26329 12.8158C6.29838 13.079 6.35641 13.3387 6.43737 13.5951L4.17421 15.3158L5.21066 17.1053L7.81593 16C8.21538 16.4103 8.64251 16.7463 9.0973 17.0081C9.55209 17.2699 10.0548 17.471 10.6054 17.6114L10.9475 20.4211ZM12.0123 15.1579C12.8881 15.1579 13.6334 14.8505 14.2481 14.2358C14.8628 13.6211 15.1702 12.8758 15.1702 12C15.1702 11.1242 14.8628 10.3789 14.2481 9.76418C13.6334 9.14948 12.8881 8.84212 12.0123 8.84212C11.1257 8.84212 10.3777 9.14948 9.76838 9.76418C9.15908 10.3789 8.85443 11.1242 8.85443 12C8.85443 12.8758 9.15908 13.6211 9.76838 14.2358C10.3777 14.8505 11.1257 15.1579 12.0123 15.1579Z" fill="currentColor"/>
+            </svg>
+            <span class="navigation__label" data-i18n="nav.settings">Settings</span>
+        </a>
+    </div>
+</nav>
+
+        <main class="main-content">
+            
+<div style="padding: 40px; max-width: 800px; margin: 0 auto;">
+  <h1>Theme System Test</h1>
+  
+  <div style="margin: 20px 0;">
+    <h2>Current Theme: WoW Light</h2>
+    <p>This page is using the WoW Light theme. To switch themes, edit the href in base.njk:</p>
+    <ul>
+      <li><code>/css/themes/wow-light.css</code> - WoW Light (default)</li>
+      <li><code>/css/themes/wow-light-inv.css</code> - WoW Light Inverse (red reserved for errors)</li>
+    </ul>
+  </div>
+
+  <div style="margin: 20px 0;">
+    <h3>Color Variables Test</h3>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin: 20px 0;">
+      <div style="background: var(--color-action-primary); color: var(--color-action-primary-foreground); padding: 16px; border-radius: 8px;">
+        Primary Button
+      </div>
+      <div style="background: var(--color-surface-container); color: var(--color-neutral-text); padding: 16px; border-radius: 8px; border: 1px solid var(--color-neutral-border);">
+        Secondary Button
+      </div>
+      <div style="background: var(--color-status-success); color: white; padding: 16px; border-radius: 8px;">
+        Success Status
+      </div>
+      <div style="background: var(--color-status-error); color: white; padding: 16px; border-radius: 8px;">
+        Error Status
+      </div>
+    </div>
+  </div>
+
+  <div style="margin: 20px 0;">
+    <h3>Typography Test</h3>
+    <p style="font-family: var(--font-family-primary);">Primary Font: Inter</p>
+    <p style="font-family: var(--font-family-secondary);">Secondary Font: Work Sans</p>
+    <p style="font-family: var(--font-family-display);">Display Font: Work Sans</p>
+  </div>
+
+  <div style="margin: 20px 0;">
+    <h3>Spacing Test</h3>
+    <div style="background: var(--color-surface-subtle); padding: var(--spacing-md); border-radius: 8px;">
+      <p>This box uses <code>var(--spacing-md)</code> padding</p>
+    </div>
+  </div>
+</div>
+
+        </main>
+    </div>
+
+    <button class="ai-fab">
+    <img src="/assets/icons/ai-assistant-icon.svg" alt="AI Assistant" width="44" height="44" class="ai-icon ai-icon--large">
+    <div class="ai-fab__tooltip">AI Assistant</div>
+</button>
+
+    <!-- AI Assistant Side Drawer -->
+<div class="ai-assistant" id="ai-assistant">
+    <!-- Drawer Header -->
+    <div class="ai-assistant__header">
+        <div class="ai-assistant__title">
+            <span class="ai-assistant__title-badge" data-i18n="aiAssistant.askBadge">Ask</span>
+            <span class="ai-assistant__title-name" data-i18n="aiAssistant.titleName">AutoAssist</span>
+        </div>
+        <div class="ai-assistant__controls">
+            <button class="ai-assistant__expand-btn" id="ai-expand-btn" aria-label="" data-i18n-aria-label="aiAssistant.ariaLabels.expand">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 14H5V19H10V17H7V14ZM5 10H7V7H10V5H5V10ZM17 14V17H14V19H19V14H17ZM14 5V7H17V10H19V5H14Z" fill="currentColor"/>
+                </svg>
+            </button>
+            <button class="ai-assistant__close-btn" id="ai-close-btn" aria-label="" data-i18n-aria-label="aiAssistant.ariaLabels.close">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z" fill="currentColor"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- AI Input Interface -->
+    <div class="ai-assistant__input-container">
+        <div class="ai-assistant__input-wrapper">
+            <div class="ai-assistant__input-icons">
+                <!-- Image Upload Icon -->
+                <button class="ai-assistant__input-icon" id="ai-image-btn" aria-label="" data-i18n-aria-label="aiAssistant.ariaLabels.uploadImage">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21 19V5C21 3.9 20.1 3 19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19ZM8.5 13.5L11 16.51L14.5 12L19 18H5L8.5 13.5Z" fill="currentColor"/>
+                    </svg>
+                </button>
+            </div>
+            
+            <input 
+                type="text" 
+                class="ai-assistant__input" 
+                id="ai-input-field"
+                placeholder=""
+                data-i18n-placeholder="aiAssistant.inputPlaceholder"
+                autocomplete="off"
+            />
+            
+            <div class="ai-assistant__input-actions">
+                <!-- Voice Input Icon -->
+                <button class="ai-assistant__input-icon" id="ai-voice-btn" aria-label="" data-i18n-aria-label="aiAssistant.ariaLabels.voiceInput">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 14C13.66 14 15 12.66 15 11V5C15 3.34 13.66 2 12 2C10.34 2 9 3.34 9 5V11C9 12.66 10.34 14 12 14ZM17.3 11C17.3 16 13.39 20 12 20C10.61 20 6.7 16 6.7 11H5C5 16.56 9.24 21 12 21C14.76 21 19 16.56 19 11H17.3Z" fill="currentColor"/>
+                    </svg>
+                </button>
+                
+                <!-- Submit Button -->
+                <button class="ai-assistant__submit-btn" id="ai-submit-btn" aria-label="" data-i18n-aria-label="aiAssistant.ariaLabels.sendMessage">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2.01 21L23 12L2.01 3L2 10L17 12L2 14L2.01 21Z" fill="currentColor"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Results Filter (Sticky) -->
+    <div class="ai-assistant__filter" id="ai-results-filter">
+        <div class="ai-assistant__filter-buttons">
+            <button class="ai-assistant__filter-btn ai-assistant__filter-btn--active" data-mode="web">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="currentColor"/>
+                </svg>
+                <span data-i18n="aiAssistant.filters.web">Web</span>
+            </button>
+            <button class="ai-assistant__filter-btn" data-mode="videos">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z" fill="currentColor"/>
+                </svg>
+                <span data-i18n="aiAssistant.filters.videos">Videos</span>
+            </button>
+            <button class="ai-assistant__filter-btn" data-mode="manuals">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" fill="currentColor"/>
+                </svg>
+                <span data-i18n="aiAssistant.filters.manuals">Manuals</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- AI Conversation Area -->
+    <div class="ai-assistant__conversation" id="ai-conversation">
+        <div class="ai-assistant__welcome">
+                <div class="ai-assistant__welcome-icon">
+                    <img src="/assets/icons/ai-assistant-icon.svg" alt="AI Assistant" width="44" height="44" class="ai-icon ai-icon--large">
+                </div>
+            <h3 class="ai-assistant__welcome-title" data-i18n="aiAssistant.welcomeTitle">Welcome to AutoAssist</h3>
+            <p class="ai-assistant__welcome-text" data-i18n="aiAssistant.welcomeText">I'm here to help with vehicle diagnostics, manual lookups, and troubleshooting. What can I assist you with today?</p>
+        </div>
+    </div>
+
+    <!-- Camera FAB -->
+    <button class="ai-camera-fab" id="ai-camera-btn" aria-label="" data-i18n-aria-label="aiAssistant.ariaLabels.takePhoto">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 17.1153C13.1474 17.1153 14.1202 16.7163 14.9182 15.9182C15.7163 15.1202 16.1153 14.1474 16.1153 13C16.1153 11.8525 15.7163 10.8798 14.9182 10.0817C14.1202 9.28366 13.1474 8.88463 12 8.88463C10.8525 8.88463 9.87979 9.28366 9.08173 10.0817C8.28366 10.8798 7.88462 11.8525 7.88462 13C7.88462 14.1474 8.28366 15.1202 9.08173 15.9182C9.87979 16.7163 10.8525 17.1153 12 17.1153ZM12 15.6154C11.2615 15.6154 10.641 15.3641 10.1384 14.8615C9.63586 14.359 9.38458 13.7384 9.38458 13C9.38458 12.2615 9.63586 11.641 10.1384 11.1384C10.641 10.6359 11.2615 10.3846 12 10.3846C12.7384 10.3846 13.359 10.6359 13.8615 11.1384C14.3641 11.641 14.6154 12.2615 14.6154 13C14.6154 13.7384 14.3641 14.359 13.8615 14.8615C13.359 15.3641 12.7384 15.6154 12 15.6154ZM4.3077 20.5C3.80257 20.5 3.375 20.325 3.025 19.975C2.675 19.625 2.5 19.1974 2.5 18.6923V7.3077C2.5 6.80257 2.675 6.375 3.025 6.025C3.375 5.675 3.80257 5.5 4.3077 5.5H7.36153L9.21153 3.5H14.7884L16.6384 5.5H19.6923C20.1974 5.5 20.625 5.675 20.975 6.025C21.325 6.375 21.5 6.80257 21.5 7.3077V18.6923C21.5 19.1974 21.325 19.625 20.975 19.975C20.625 20.325 20.1974 20.5 19.6923 20.5H4.3077ZM4.3077 19H19.6923C19.782 19 19.8557 18.9711 19.9134 18.9134C19.9711 18.8557 20 18.782 20 18.6923V7.3077C20 7.21795 19.9711 7.14423 19.9134 7.08653C19.8557 7.02883 19.782 6.99998 19.6923 6.99998H15.9692L14.1346 4.99998H9.86535L8.03075 6.99998H4.3077C4.21795 6.99998 4.14423 7.02883 4.08653 7.08653C4.02883 7.14423 3.99998 7.21795 3.99998 7.3077V18.6923C3.99998 18.782 4.02883 18.8557 4.08653 18.9134C4.14423 18.9711 4.21795 19 4.3077 19Z" fill="currentColor"/>
+        </svg>
+    </button>
+
+    <!-- New Chat FAB -->
+    <button class="ai-new-chat-fab" id="ai-new-chat-btn" aria-label="" data-i18n-aria-label="aiAssistant.ariaLabels.startNewChat">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="ai-new-chat-fab__text" data-i18n="aiAssistant.newChat">New Chat</span>
+    </button>
+</div>
+
+    <footer class="footer">
+    <div class="footer__content">
+        <span class="footer__text" data-i18n="footer.company">WoW Group | Autocom</span>
+        <div class="language-selector">
+  <button class="language-selector__button" id="language-selector-btn" aria-label="Select language" aria-haspopup="true" aria-expanded="false">
+    <span class="language-selector__current" id="language-selector-current">English</span>
+    <svg class="language-selector__icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+  <div class="language-selector__dropdown" id="language-selector-dropdown" role="menu" aria-hidden="true">
+    <button class="language-selector__option" data-lang="en" role="menuitem">
+      <span class="language-selector__option-label">English</span>
+      <svg class="language-selector__check" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M13 4L6 11L3 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <button class="language-selector__option" data-lang="de" role="menuitem">
+      <span class="language-selector__option-label">Deutsch</span>
+      <svg class="language-selector__check" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M13 4L6 11L3 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <button class="language-selector__option" data-lang="no" role="menuitem">
+      <span class="language-selector__option-label">Norsk</span>
+      <svg class="language-selector__check" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M13 4L6 11L3 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+
+    </div>
+</footer>
+
+    <script src="/js/translations.js"></script>
+    <script src="/js/password-auth.js"></script>
+    <script src="/js/alphabetical-index.js"></script>
+    <script src="/js/ai-assistant.js"></script>
+    <script src="/js/language-selector.js"></script>
+    
+</body>
+</html>

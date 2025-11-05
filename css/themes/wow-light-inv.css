@@ -1,0 +1,58 @@
+/* WoW Light Inverse Theme - Red reserved for errors */
+:root {
+  /* Brand Colors - Red reserved for errors only */
+  --color-brand-red: #e00000; /* Used only for error states */
+
+  /* Action Colors - Using blue as primary instead of red */
+  --color-action-primary: #0093dd;
+  --color-action-primary-hover: #007fbf;
+  --color-action-primary-foreground: #fafafa;
+  --color-action-disabled: #cad4d9;
+  --color-action-disabled-foreground: #949a9d;
+
+  /* Status Colors - Red reserved for errors */
+  --color-status-success: #1db954;
+  --color-status-warning: #ffa726;
+  --color-status-error: #e00000; /* Same as brand red */
+
+  /* Surface Colors */
+  --color-surface-base: #ededed;
+  --color-surface-container: #ffffff;
+  --color-surface-subtle: #fafafa;
+  --color-surface-hover: #f0f0f0;
+  --color-surface-header: #f8f8f8;
+
+  /* Neutral Colors */
+  --color-neutral-text: #222222;
+  --color-neutral-text-subtle: #ada1a1;
+  --color-neutral-border: #d2cfcf;
+  --color-neutral-border-subtle: #e0e0e0;
+  --color-neutral-border-air: #f0f0f0;
+  --color-neutral-icon-subtle: #988c8c;
+  --color-neutral-surface: #ffffff;
+
+  /* Legacy aliases for backward compatibility */
+  --color-primary: var(--color-action-primary);
+  --color-primary-hover: var(--color-action-primary-hover);
+  --color-primary-foreground: var(--color-action-primary-foreground);
+  --color-text: var(--color-neutral-text);
+  --color-background: var(--color-surface-base);
+
+  /* Additional variables for vehicle selection */
+  --color-accent-light: #e6f4fc; /* wow.cyan.50 */
+  --color-primary-dark: #3c2626; /* wow.neutral.900 */
+  
+  /* Elevation colors - from WoW Light design tokens */
+  --color-elevation-sunken: #d9d9d9; /* wow.neutral.400 - light gray for active state */
+  --color-elevation-surface: #e6e6e6; /* wow.neutral.300 - medium gray */
+  --color-elevation-raised: #ffffff; /* wow.neutral.0 - white */
+  
+  /* Border colors - from WoW Light design tokens */
+  --color-border-default: #e0e0e0; /* wow.neutral.300A - light border */
+  
+  /* Text colors - from WoW Light design tokens */
+  --color-text-subtlest: #4d4d4d; /* wow.neutral.700 - subtle text */
+  --color-text-disabled: #999999; /* wow.neutral.400A - disabled text */
+}
+
+

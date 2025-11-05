@@ -1,0 +1,99 @@
+/* VCI Indicator Component Styles */
+
+.vci-indicator {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm); /* 8px gap between label and icon */
+  flex-direction: row; /* Label first, then icon */
+  min-width: fit-content; /* Ensure container doesn't shrink */
+}
+
+/* When no label is shown, maintain original icon-only layout */
+.vci-indicator:not(.vci-indicator--with-label) {
+  width: 42px;
+  height: 42px;
+}
+
+/* SVG Image Styles */
+.vci-indicator__svg {
+  width: 42px;
+  height: 42px;
+  display: block;
+  flex-shrink: 0; /* Prevent icon from shrinking */
+}
+
+/* Spinning Animation for Loading States */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Spin only the ring elements, not the entire SVG */
+.vci-indicator--connecting .vci-ring,
+.vci-indicator--diagnostics .vci-ring {
+  animation: spin 2s linear infinite;
+  transform-origin: center;
+}
+
+/* Connected state should have a visible ring (no animation) */
+.vci-indicator--connected .vci-ring {
+  opacity: 1;
+}
+
+/* State-specific styles */
+.vci-indicator--no-vci {
+  /* No VCI detected state (default) */
+}
+
+.vci-indicator--connecting {
+  /* VCI is connecting and processing */
+}
+
+.vci-indicator--connected {
+  /* VCI is connected and ready */
+}
+
+.vci-indicator--low-battery {
+  /* VCI battery is low */
+}
+
+.vci-indicator--diagnostics {
+  /* Running vehicle diagnostics */
+}
+
+/* Label Styles */
+.vci-indicator__label {
+  font-family: var(--font-family-secondary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-normal);
+  color: var(--color-text-default);
+  white-space: nowrap;
+  user-select: none;
+  flex-shrink: 0; /* Prevent label from shrinking */
+}
+
+/* State-specific label colors */
+.vci-indicator--no-vci .vci-indicator__label {
+  color: var(--color-neutral-text-subtle);
+}
+
+.vci-indicator--connecting .vci-indicator__label {
+  /*color: var(--color-status-warning);*/
+}
+
+.vci-indicator--connected .vci-indicator__label {
+  /*color: var(--color-status-success);*/
+}
+
+.vci-indicator--low-battery .vci-indicator__label {
+  /*color: var(--color-status-warning);*/
+}
+
+.vci-indicator--diagnostics .vci-indicator__label {
+  /*color: var(--color-status-success);*/
+}
