@@ -20,23 +20,28 @@ class LanguageSelector {
     this.init();
   }
 
-  init() {
-    const button = document.getElementById('language-selector-btn');
-    const dropdown = document.getElementById('language-selector-dropdown');
-    const currentLabel = document.getElementById('language-selector-current');
+  init(selectorPrefix = '') {
+    // Allow custom prefix for multiple instances (e.g., 'gate-' for password gate)
+    const prefix = selectorPrefix ? `${selectorPrefix}-` : '';
+    const button = document.getElementById(`language-selector-${prefix}btn`);
+    const dropdown = document.getElementById(`language-selector-${prefix}dropdown`);
+    const currentLabel = document.getElementById(`language-selector-${prefix}current`);
     
     if (!button || !dropdown || !currentLabel) {
-      console.warn('Language selector elements not found');
+      console.warn(`Language selector elements not found (prefix: ${prefix})`);
       return;
     }
 
+    // Store prefix for this instance
+    this.selectorPrefix = selectorPrefix;
+    
     // Set initial state
-    this.updateUI();
+    this.updateUI(selectorPrefix);
     
     // Button click handler
     button.addEventListener('click', (e) => {
       e.stopPropagation();
-      this.toggleDropdown();
+      this.toggleDropdown(this.selectorPrefix);
     });
 
     // Option click handlers
@@ -54,21 +59,22 @@ class LanguageSelector {
     // Close dropdown when clicking outside
     document.addEventListener('click', (e) => {
       if (!button.contains(e.target) && !dropdown.contains(e.target)) {
-        this.closeDropdown();
+        this.closeDropdown(this.selectorPrefix);
       }
     });
 
     // Close dropdown on Escape key
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
-        this.closeDropdown();
+        this.closeDropdown(this.selectorPrefix);
       }
     });
   }
 
-  toggleDropdown() {
-    const button = document.getElementById('language-selector-btn');
-    const dropdown = document.getElementById('language-selector-dropdown');
+  toggleDropdown(selectorPrefix = '') {
+    const prefix = selectorPrefix ? `${selectorPrefix}-` : '';
+    const button = document.getElementById(`language-selector-${prefix}btn`);
+    const dropdown = document.getElementById(`language-selector-${prefix}dropdown`);
     
     if (!button || !dropdown) return;
 
@@ -81,9 +87,10 @@ class LanguageSelector {
     }
   }
 
-  openDropdown() {
-    const button = document.getElementById('language-selector-btn');
-    const dropdown = document.getElementById('language-selector-dropdown');
+  openDropdown(selectorPrefix = '') {
+    const prefix = selectorPrefix ? `${selectorPrefix}-` : '';
+    const button = document.getElementById(`language-selector-${prefix}btn`);
+    const dropdown = document.getElementById(`language-selector-${prefix}dropdown`);
     
     if (!button || !dropdown) return;
 
@@ -91,9 +98,10 @@ class LanguageSelector {
     dropdown.setAttribute('aria-hidden', 'false');
   }
 
-  closeDropdown() {
-    const button = document.getElementById('language-selector-btn');
-    const dropdown = document.getElementById('language-selector-dropdown');
+  closeDropdown(selectorPrefix = '') {
+    const prefix = selectorPrefix ? `${selectorPrefix}-` : '';
+    const button = document.getElementById(`language-selector-${prefix}btn`);
+    const dropdown = document.getElementById(`language-selector-${prefix}dropdown`);
     
     if (!button || !dropdown) return;
 
@@ -109,8 +117,17 @@ class LanguageSelector {
 
     this.currentLanguage = lang;
     this.storeLanguage(lang);
-    this.updateUI();
-    this.closeDropdown();
+    this.updateUI(this.selectorPrefix);
+    this.closeDropdown(this.selectorPrefix);
+    
+    // Also update the other language selector instance if it exists
+    if (this.selectorPrefix === '' && window.languageSelectorGateInstance) {
+      window.languageSelectorGateInstance.currentLanguage = lang;
+      window.languageSelectorGateInstance.updateUI('gate-');
+    } else if (this.selectorPrefix === 'gate-' && window.languageSelectorInstance) {
+      window.languageSelectorInstance.currentLanguage = lang;
+      window.languageSelectorInstance.updateUI();
+    }
     
     // Update all translations in the UI
     if (window.updateTranslations) {
@@ -124,9 +141,12 @@ class LanguageSelector {
     document.dispatchEvent(event);
   }
 
-  updateUI() {
-    const currentLabel = document.getElementById('language-selector-current');
-    const options = document.querySelectorAll('.language-selector__option');
+  updateUI(selectorPrefix = '') {
+    const prefix = selectorPrefix ? `${selectorPrefix}-` : '';
+    const currentLabel = document.getElementById(`language-selector-${prefix}current`);
+    // Find options in the same container as the current label
+    const container = currentLabel?.closest('.language-selector');
+    const options = container ? container.querySelectorAll('.language-selector__option') : document.querySelectorAll('.language-selector__option');
     
     if (currentLabel) {
       currentLabel.textContent = this.languages[this.currentLanguage];
@@ -167,11 +187,12 @@ class LanguageSelector {
 }
 
 // Initialize language selector when DOM is ready
+// Store instance globally so it can be re-initialized if needed
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
-    new LanguageSelector();
+    window.languageSelectorInstance = new LanguageSelector();
   });
 } else {
-  new LanguageSelector();
+  window.languageSelectorInstance = new LanguageSelector();
 }
 

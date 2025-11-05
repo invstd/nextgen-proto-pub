@@ -31,6 +31,18 @@ class PasswordAuth {
     } else {
       this.showPasswordGate();
       this.setupPasswordForm();
+      
+      // Initialize password gate language selector after a short delay
+      // to ensure LanguageSelector class is available
+      setTimeout(() => {
+        if (typeof LanguageSelector !== 'undefined') {
+          const gateButton = document.getElementById('language-selector-gate-btn');
+          if (gateButton && !window.languageSelectorGateInstance) {
+            window.languageSelectorGateInstance = new LanguageSelector();
+            window.languageSelectorGateInstance.init('gate-');
+          }
+        }
+      }, 100);
     }
   }
   
@@ -73,6 +85,9 @@ class PasswordAuth {
   grantAccess() {
     // Add class to body to allow CSS to show content and hide gate
     document.body.classList.add('password-authenticated');
+    
+    // Language selector should already be initialized, but ensure footer one works
+    // The footer selector uses default IDs (no prefix), so it should work fine
   }
   
   /**
