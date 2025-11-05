@@ -132,10 +132,12 @@ class VCISimple {
             `;
         } else if (status === 'connected') {
             // Connected state - use the connected icon
-            svgElement.outerHTML = `<img src="/assets/icons/Status=Connected.svg" alt="VCI Connected" class="vci-indicator__svg">`;
+            const basePath = window.__basePath || '';
+            svgElement.outerHTML = `<img src="${basePath}assets/icons/Status=Connected.svg" alt="VCI Connected" class="vci-indicator__svg">`;
         } else if (status === 'no-vci') {
             // No VCI state - use the no VCI icon
-            svgElement.outerHTML = `<img src="/assets/icons/Status=No VCI.svg" alt="VCI Not Connected" class="vci-indicator__svg">`;
+            const basePath = window.__basePath || '';
+            svgElement.outerHTML = `<img src="${basePath}assets/icons/Status=No VCI.svg" alt="VCI Not Connected" class="vci-indicator__svg">`;
         }
     }
 

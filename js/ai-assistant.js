@@ -108,7 +108,9 @@ class AIAssistant {
         // Map brand names to their logo paths
         // Standardize brand name (lowercase, replace spaces with hyphens)
         const normalizedBrand = brandName.toLowerCase().replace(/\s+/g, '-');
-        return `/assets/brands/${normalizedBrand}.png`;
+        // Get base path for GitHub Pages subdirectory deployment
+        const basePath = window.__basePath || '';
+        return basePath + `assets/brands/${normalizedBrand}.png`;
     }
     
     selectVehicleFromAI(brand, model, year, logo) {
@@ -354,9 +356,10 @@ class AIAssistant {
                 </div>
             `;
         } else {
+            const basePath = window.__basePath || '';
             messageDiv.innerHTML = `
             <div class="ai-message__avatar">
-                <img src="/assets/icons/ai-assistant-icon.svg" alt="AI Assistant" width="24" height="24" class="ai-icon ai-icon--small">
+                <img src="${basePath}assets/icons/ai-assistant-icon.svg" alt="AI Assistant" width="24" height="24" class="ai-icon ai-icon--small">
             </div>
                 <div class="ai-message__content">
                     <p>${content}</p>
@@ -548,9 +551,10 @@ class AIAssistant {
         messageDiv.className = 'ai-message ai-message--ai ai-message--processing';
         
         const searchingText = window.t ? window.t('aiAssistant.searching') : 'Searching...';
+        const basePath = window.__basePath || '';
         messageDiv.innerHTML = `
             <div class="ai-message__avatar">
-                <img src="/assets/icons/ai-assistant-icon.svg" alt="AI Assistant" width="24" height="24" class="ai-icon ai-icon--small">
+                <img src="${basePath}assets/icons/ai-assistant-icon.svg" alt="AI Assistant" width="24" height="24" class="ai-icon ai-icon--small">
             </div>
             <div class="ai-message__content">
                 <div class="ai-message__state" id="ai-processing-state">${searchingText}</div>
@@ -1317,10 +1321,11 @@ class AIAssistant {
         if (conversation) {
             const welcomeTitle = window.t ? window.t('aiAssistant.welcomeTitle') : 'Welcome to AutoAssist';
             const welcomeText = window.t ? window.t('aiAssistant.welcomeText') : 'I\'m here to help with vehicle diagnostics, manual lookups, and troubleshooting. What can I assist you with today?';
+            const basePath = window.__basePath || '';
             conversation.innerHTML = `
                 <div class="ai-assistant__welcome">
                     <div class="ai-assistant__welcome-icon">
-                        <img src="/assets/icons/ai-assistant-icon.svg" alt="AI Assistant" width="44" height="44" class="ai-icon ai-icon--large">
+                        <img src="${basePath}assets/icons/ai-assistant-icon.svg" alt="AI Assistant" width="44" height="44" class="ai-icon ai-icon--large">
                     </div>
                     <h3 class="ai-assistant__welcome-title" data-i18n="aiAssistant.welcomeTitle">${welcomeTitle}</h3>
                     <p class="ai-assistant__welcome-text" data-i18n="aiAssistant.welcomeText">${welcomeText}</p>
@@ -1560,15 +1565,16 @@ class AIAssistant {
         const photoAnalysisText = window.t ? window.t('aiAssistant.photoAnalysis') : 'This is a photo of';
         const wouldYouLikeText = window.t ? window.t('aiAssistant.wouldYouLikeToSelect') : 'Would you like to select this vehicle for VCI connection?';
         const selectVehicleText = window.t ? window.t('aiAssistant.selectVehicle') : 'Select vehicle';
+        const basePath = window.__basePath || '';
         aiMessage.innerHTML = `
             <div class="ai-message__avatar">
-                <img src="/assets/icons/ai-assistant-icon.svg" alt="AI Assistant" width="24" height="24" class="ai-icon ai-icon--small">
+                <img src="${basePath}assets/icons/ai-assistant-icon.svg" alt="AI Assistant" width="24" height="24" class="ai-icon ai-icon--small">
             </div>
             <div class="ai-message__content">
                 <p>${photoAnalysisText} Fiat 500 2025.</p>
                 <p>${wouldYouLikeText}</p>
                 <button class="ai-cta-button" id="select-vehicle-btn">
-                    <img src="/assets/icons/nav-vehicle.svg" alt="Vehicle" width="16" height="16" class="svg">
+                    <img src="${basePath}assets/icons/nav-vehicle.svg" alt="Vehicle" width="16" height="16" class="svg">
                     ${selectVehicleText}
                 </button>
             </div>
@@ -1591,7 +1597,8 @@ class AIAssistant {
                     this.selectVehicleFromAI(vehicleInfo.brand, vehicleInfo.model, vehicleInfo.year, vehicleInfo.logo);
                 } else {
                     // Fallback to hardcoded Fiat 500 2025 for now
-                    this.selectVehicleFromAI('Fiat', '500', '2025', '/assets/brands/fiat.png');
+                    const basePath = window.__basePath || '';
+                    this.selectVehicleFromAI('Fiat', '500', '2025', basePath + 'assets/brands/fiat.png');
                 }
             });
         }

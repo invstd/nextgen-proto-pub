@@ -34,7 +34,10 @@ class VehicleSelectionController {
   // Load vehicle data from JSON file
   async loadVehicleData() {
     try {
-      const response = await fetch('/assets/data/vehicles.json');
+      // Get base path for GitHub Pages subdirectory deployment
+      const basePath = window.__basePath || '';
+      const jsonPath = basePath + 'assets/data/vehicles.json';
+      const response = await fetch(jsonPath);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -335,9 +338,10 @@ class VehicleSelectionController {
       
       // Create reset button dynamically
       const resetText = window.t ? window.t('vehicleSelection.reset') : 'Reset';
+      const basePath = window.__basePath || '';
       header.innerHTML = `
         <button class="button button--outlined back-button" id="back-button" aria-label="${resetText} to brand selection">
-          <img src="/assets/icons/restart.svg" class="svg icon" alt="${resetText}" width="24" height="24">
+          <img src="${basePath}assets/icons/restart.svg" class="svg icon" alt="${resetText}" width="24" height="24">
           ${resetText}
         </button>
       `;
@@ -745,11 +749,12 @@ class VehicleSelectionController {
     const proTip = window.t ? window.t('vehicleSelection.proTip') : 'Pro tip,';
     const proTipText = window.t ? window.t('vehicleSelection.proTipText') : 'If you need help with vehicle selection, try using the photo recognition with AI Assistant';
     
+    const basePath = window.__basePath || '';
     banner.innerHTML = `
       <div class="step2-banner__content">
         <p class="step2-banner__text">${bannerText}</p>
         <div class="step2-banner__pro-tip">
-          <img src="/assets/icons/info.svg" alt="Info" class="svg icon step2-banner__pro-tip-icon" width="20" height="20">
+          <img src="${basePath}assets/icons/info.svg" alt="Info" class="svg icon step2-banner__pro-tip-icon" width="20" height="20">
           <div class="step2-banner__pro-tip-content">
             <span class="step2-banner__pro-tip-label">${proTip}</span>
             <p class="step2-banner__pro-tip-text">
