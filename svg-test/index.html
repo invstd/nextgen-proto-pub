@@ -5,17 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SVG Replacement Test</title>
     <script>
-        // Set base path for GitHub Pages subdirectory deployment
+        // Fix asset paths for GitHub Pages subdirectory deployment
+        // This MUST be inline and blocking to run before resources load
         (function() {
-            const pathname = window.location.pathname;
-            const pathParts = pathname.split('/').filter(p => p);
-            // If we're in a subdirectory (e.g., /nextgen-proto-pub/vehicle-selection/), extract repo name
+            // Get base path from current location
+            var pathname = window.location.pathname;
+            var pathParts = pathname.split('/').filter(function(p) { return p; });
+            var basePath = '';
+            
+            // Extract repo name if in subdirectory (e.g., /nextgen-proto-pub/vehicle-selection/ -> /nextgen-proto-pub/)
             if (pathParts.length > 0) {
-                const basePath = '/' + pathParts[0] + '/';
-                const base = document.createElement('base');
-                base.href = basePath;
-                document.head.insertBefore(base, document.head.firstChild);
+                basePath = '/' + pathParts[0] + '/';
+            } else {
+                basePath = '/';
             }
+            
+            // Set base tag immediately - this affects all relative URLs
+            var base = document.createElement('base');
+            base.href = basePath;
+            document.head.insertBefore(base, document.head.firstChild);
+            
+            // Store basePath globally for later use
+            window.__basePath = basePath;
         })();
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,16 +34,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Note: Using Work Sans font for display text -->
     <!-- Theme switching - change href to switch themes -->
-    <link rel="stylesheet" href="/css/themes/wow-light.css">
+    <!-- CSS files use absolute paths that will be resolved relative to base tag -->
+    <link rel="stylesheet" href="css/themes/wow-light.css">
     <!-- Available themes:
-         /css/themes/wow-light.css - WoW Light (Red theme)
-         /css/themes/autocom-dark.css - Autocom Dark (Blue + Green theme)
-         /css/themes/wow-light-inv.css - WoW Light Inverse (Red reserved for errors)
+         css/themes/wow-light.css - WoW Light (Red theme)
+         css/themes/autocom-dark.css - Autocom Dark (Blue + Green theme)
+         css/themes/wow-light-inv.css - WoW Light Inverse (Red reserved for errors)
     -->
-    <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/badge.css">
-    <link rel="stylesheet" href="/css/selection-tile.css">
-    <link rel="stylesheet" href="/css/password-gate.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/badge.css">
+    <link rel="stylesheet" href="css/selection-tile.css">
+    <link rel="stylesheet" href="css/password-gate.css">
 </head>
 <body>
     <!-- Password Gate - Shows before main content if not authenticated -->
@@ -427,11 +439,11 @@ button svg {
     </div>
 </footer>
 
-    <script src="/js/translations.js"></script>
-    <script src="/js/password-auth.js"></script>
-    <script src="/js/alphabetical-index.js"></script>
-    <script src="/js/ai-assistant.js"></script>
-    <script src="/js/language-selector.js"></script>
+    <script src="js/translations.js"></script>
+    <script src="js/password-auth.js"></script>
+    <script src="js/alphabetical-index.js"></script>
+    <script src="js/ai-assistant.js"></script>
+    <script src="js/language-selector.js"></script>
     
         
             <script src="/js/svg-replacer.js"></script>
