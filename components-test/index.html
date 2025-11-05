@@ -4,6 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Components Test Page</title>
+    <script>
+        // Set base path for GitHub Pages subdirectory deployment
+        (function() {
+            const pathname = window.location.pathname;
+            const pathParts = pathname.split('/').filter(p => p);
+            // If we're in a subdirectory (e.g., /nextgen-proto-pub/vehicle-selection/), extract repo name
+            if (pathParts.length > 0) {
+                const basePath = '/' + pathParts[0] + '/';
+                const base = document.createElement('base');
+                base.href = basePath;
+                document.head.insertBefore(base, document.head.firstChild);
+            }
+        })();
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">

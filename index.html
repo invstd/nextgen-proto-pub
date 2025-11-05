@@ -4,9 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redirecting...</title>
-    <meta http-equiv="refresh" content="0; url=/vehicle-selection/">
+    <script>
+        // Smart redirect that handles both root and subdirectory deployments
+        (function() {
+            const pathname = window.location.pathname;
+            // Extract repo name from path (e.g., /nextgen-proto-pub/ -> nextgen-proto-pub)
+            const pathParts = pathname.split('/').filter(p => p);
+            const isRoot = pathname === '/' || pathname === '';
+            
+            let basePath = '';
+            if (!isRoot && pathParts.length > 0) {
+                // Subdirectory deployment (e.g., /nextgen-proto-pub/)
+                basePath = '/' + pathParts[0] + '/';
+            } else {
+                // Root deployment
+                basePath = '/';
+            }
+            
+            window.location.replace(basePath + 'vehicle-selection/');
+        })();
+    </script>
+    <noscript>
+        <meta http-equiv="refresh" content="0; url=vehicle-selection/">
+    </noscript>
 </head>
 <body>
-    <p>Redirecting to <a href="/vehicle-selection/">Vehicle Selection</a>...</p>
+    <p>Redirecting to <a href="vehicle-selection/">Vehicle Selection</a>...</p>
 </body>
 </html>
