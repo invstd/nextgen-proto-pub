@@ -260,7 +260,8 @@ class VehicleSelectionController {
       const arrowIcon = document.createElement('div');
       arrowIcon.className = 'selection-tile__chevron';
       const arrowImg = document.createElement('img');
-      arrowImg.src = '/assets/icons/arrow-right.svg';
+      const basePath = window.__basePath || '';
+      arrowImg.src = basePath + 'assets/icons/arrow-right.svg';
       arrowImg.className = 'svg icon';
       arrowImg.alt = 'Arrow right';
       arrowImg.width = 24;

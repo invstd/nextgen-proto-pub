@@ -1446,8 +1446,9 @@ class AIAssistant {
         setTimeout(() => {
             console.log('AI Assistant: Photo captured');
             // Store the captured photo for AI conversation
+            const basePath = window.__basePath || '';
             this.capturedPhoto = {
-                src: '/assets/images/camera-feed.jpg',
+                src: basePath + 'assets/images/camera-feed.jpg',
                 timestamp: new Date().toISOString()
             };
             this.showCaptureSuccess();
