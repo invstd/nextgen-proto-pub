@@ -8,16 +8,25 @@
         // Fix asset paths for GitHub Pages subdirectory deployment
         // This MUST be inline and blocking to run before resources load
         (function() {
-            // Get base path from current location
+            var hostname = window.location.hostname;
             var pathname = window.location.pathname;
-            var pathParts = pathname.split('/').filter(function(p) { return p; });
             var basePath = '';
             
-            // Extract repo name if in subdirectory (e.g., /nextgen-proto-pub/vehicle-selection/ -> /nextgen-proto-pub/)
-            if (pathParts.length > 0) {
-                basePath = '/' + pathParts[0] + '/';
-            } else {
+            // Detect local development (localhost or 127.0.0.1)
+            var isLocalhost = hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '0.0.0.0';
+            
+            if (isLocalhost) {
+                // Local development: use root path
                 basePath = '/';
+            } else {
+                // Production: detect subdirectory from pathname
+                // Extract repo name if in subdirectory (e.g., /nextgen-proto-pub/vehicle-selection/ -> /nextgen-proto-pub/)
+                var pathParts = pathname.split('/').filter(function(p) { return p; });
+                if (pathParts.length > 0) {
+                    basePath = '/' + pathParts[0] + '/';
+                } else {
+                    basePath = '/';
+                }
             }
             
             // Set base tag immediately - this affects all relative URLs

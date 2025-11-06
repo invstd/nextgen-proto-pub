@@ -23,6 +23,7 @@ class VehicleSelectionController {
     this.selectedYear = null;
     this.selectedEngineType = null;
     this.vehicleData = null; // Store loaded vehicle data
+    this.isCreatingTiles = false; // Flag to prevent duplicate tile creation
     this.activeNavigationStep = null; // Track which step is active in navigation (null = auto-detect)
     this.previousButtonState = null; // Track previous button state for animation
     this.loadState();
@@ -359,14 +360,33 @@ class VehicleSelectionController {
       // Update step 2 Control column with brand logo and selection tiles
       const controlContainer = step2Content.querySelector('.step2-container--control');
       if (controlContainer) {
-        // Clear existing content (except structure)
+        // Clear existing content (except structure) - remove all children to prevent duplication
+        // Do this FIRST, even if tiles are being created, to ensure cleanup
         const existingLogo = controlContainer.querySelector('.step2-brand-logo');
         const existingTiles = controlContainer.querySelector('.step2-selection-tiles');
         const existingPlaceholder = controlContainer.querySelector('.step2-placeholder');
+        const existingResetButton = controlContainer.querySelector('.step2-reset-button');
         
+        // Remove all existing elements to prevent duplication
         if (existingLogo) existingLogo.remove();
         if (existingTiles) existingTiles.remove();
         if (existingPlaceholder) existingPlaceholder.remove();
+        if (existingResetButton) existingResetButton.remove();
+        
+        // Also remove any remaining selection tiles that might not be in the container
+        const allTiles = controlContainer.querySelectorAll('.selection-tile');
+        allTiles.forEach(tile => tile.remove());
+        
+        // Also remove any tiles containers that might exist
+        const allTileContainers = controlContainer.querySelectorAll('.step2-selection-tiles, .selection-tile-container');
+        allTileContainers.forEach(container => container.remove());
+        
+        // If tiles are already being created, skip creating new ones (they'll be created by the pending Promise)
+        // But since we just removed everything, we need to create new ones
+        // So we'll reset the flag and continue
+        if (this.isCreatingTiles) {
+          this.isCreatingTiles = false;
+        }
         
         // Create brand logo section at the top
         if (this.selectedBrandLogo) {
@@ -393,7 +413,7 @@ class VehicleSelectionController {
         // Badge shows Success if selection exists (even when active), Default if no selection, Disabled if not available
         const tiles = [
           { 
-            label: 'Brand', 
+            label: window.t ? window.t('vehicleSelection.brand') : 'Brand', 
             subtext: this.selectedBrand || '', 
             state: activeStep === 'brand' ? 'active' : (this.selectedBrand ? 'completed' : 'active'), 
             badgeText: '1', 
@@ -401,7 +421,7 @@ class VehicleSelectionController {
             step: 'brand'
           },
           { 
-            label: 'Model', 
+            label: window.t ? window.t('vehicleSelection.model') : 'Model', 
             subtext: this.selectedModel || '', 
             state: activeStep === 'model' ? 'active' : (this.selectedModel ? 'completed' : 'active'), 
             badgeText: '2', 
@@ -409,7 +429,7 @@ class VehicleSelectionController {
             step: 'model'
           },
           { 
-            label: 'Year', 
+            label: window.t ? window.t('vehicleSelection.year') : 'Year', 
             subtext: this.selectedYear || '', 
             state: activeStep === 'year' ? 'active' : (this.selectedModel && activeStep !== 'model' ? (this.selectedYear ? 'completed' : 'active') : 'disabled'), 
             badgeText: '3', 
@@ -417,7 +437,7 @@ class VehicleSelectionController {
             step: 'year'
           },
           { 
-            label: 'Engine type', 
+            label: window.t ? window.t('vehicleSelection.engineType') : 'Engine type', 
             subtext: this.selectedEngineType || '', 
             state: activeStep === 'engineType' ? 'active' : (this.selectedYear && activeStep !== 'model' && activeStep !== 'year' ? (this.selectedEngineType ? 'completed' : 'active') : 'disabled'), 
             badgeText: '4', 
@@ -425,6 +445,9 @@ class VehicleSelectionController {
             step: 'engineType'
           }
         ];
+        
+        // Set flag to prevent duplicate creation
+        this.isCreatingTiles = true;
         
         // Create tiles asynchronously and add them when ready
         const tilePromises = tiles.map(async (tile) => {
@@ -442,11 +465,26 @@ class VehicleSelectionController {
         });
         
         Promise.all(tilePromises).then(tileElements => {
-          tileElements.forEach(tileElement => {
-            tilesContainer.appendChild(tileElement);
-          });
-          // Append container after tiles are ready
-          controlContainer.appendChild(tilesContainer);
+          // Double-check that no other tiles container exists (might have been created by another call)
+          const existingContainer = controlContainer.querySelector('.step2-selection-tiles');
+          if (existingContainer && existingContainer !== tilesContainer) {
+            // Another container was created, remove it
+            existingContainer.remove();
+          }
+          
+          // Only append if this container isn't already in the DOM
+          if (!controlContainer.contains(tilesContainer)) {
+            tileElements.forEach(tileElement => {
+              tilesContainer.appendChild(tileElement);
+            });
+            // Append container after tiles are ready
+            controlContainer.appendChild(tilesContainer);
+          }
+          // Reset flag after completion
+          this.isCreatingTiles = false;
+        }).catch(error => {
+          console.error('Error creating tiles:', error);
+          this.isCreatingTiles = false;
         });
       }
       

@@ -35,7 +35,8 @@ const translations = {
       bannerText: 'Choose Model, Year and Engine type to proceed.',
       proTip: 'Pro tip,',
       proTipText: 'If you need help with vehicle selection, try using the photo recognition with',
-      aiAssistantLink: 'AI Assistant'
+      aiAssistantLink: 'AI Assistant',
+      searchPlaceholder: 'VIN / VRM / Engine Code / Brand / Model ...'
     },
     // Footer
     footer: {
@@ -279,7 +280,8 @@ const translations = {
       bannerText: 'Wählen Sie Modell, Jahr und Motortyp, um fortzufahren.',
       proTip: 'Profi-Tipp,',
       proTipText: 'Wenn Sie Hilfe bei der Fahrzeugauswahl benötigen, versuchen Sie die Fotoerkennung mit',
-      aiAssistantLink: 'KI-Assistenten'
+      aiAssistantLink: 'KI-Assistenten',
+      searchPlaceholder: 'FIN / VRM / Motorkennung / Marke / Modell ...'
     },
     // Footer
     footer: {
@@ -523,7 +525,8 @@ const translations = {
       bannerText: 'Velg Modell, År og Motortype for å fortsette.',
       proTip: 'Pro-tips,',
       proTipText: 'Hvis du trenger hjelp med kjøretøyvalg, prøv å bruke foto-gjenkjenning med',
-      aiAssistantLink: 'KI-assistenten'
+      aiAssistantLink: 'KI-assistenten',
+      searchPlaceholder: 'VIN / VRM / Motorkode / Merke / Modell ...'
     },
     // Footer
     footer: {
