@@ -17,7 +17,12 @@ class LanguageSelector {
       no: 'Norsk'
     };
     
-    this.init();
+    // Don't auto-initialize - let init() be called explicitly with the right prefix
+    // This allows us to create instances for different selectors (main vs gate)
+    this.selectorPrefix = '';
+    this._buttonClickHandler = null;
+    this._documentClickHandler = null;
+    this._documentKeydownHandler = null;
   }
 
   init(selectorPrefix = '') {
@@ -35,55 +40,97 @@ class LanguageSelector {
     // Store prefix for this instance
     this.selectorPrefix = selectorPrefix;
     
+    // Remove old event listeners if they exist (for re-initialization)
+    // Only remove if button exists (safety check)
+    if (this._buttonClickHandler && button) {
+      button.removeEventListener('click', this._buttonClickHandler);
+    }
+    if (this._documentClickHandler) {
+      document.removeEventListener('click', this._documentClickHandler);
+    }
+    if (this._documentKeydownHandler) {
+      document.removeEventListener('keydown', this._documentKeydownHandler);
+    }
+    
     // Set initial state
     this.updateUI(selectorPrefix);
     
-    // Button click handler
-    button.addEventListener('click', (e) => {
+    // Create bound handlers to allow removal later
+    // Store prefix in closure to ensure it's used correctly
+    const storedPrefix = selectorPrefix;
+    this._buttonClickHandler = (e) => {
       e.stopPropagation();
-      this.toggleDropdown(this.selectorPrefix);
-    });
+      // Use stored prefix from when handler was created
+      this.toggleDropdown(storedPrefix);
+    };
+    
+    // Use a unique identifier for document listeners to avoid conflicts
+    // Store prefix in closure for document handlers too
+    const documentPrefix = prefix; // Use the calculated prefix for element IDs
+    this._documentClickHandler = (e) => {
+      // Only handle if this is for our specific selector
+      const currentButton = document.getElementById(`language-selector-${documentPrefix}btn`);
+      const currentDropdown = document.getElementById(`language-selector-${documentPrefix}dropdown`);
+      if (currentButton && currentDropdown && 
+          !currentButton.contains(e.target) && !currentDropdown.contains(e.target)) {
+        this.closeDropdown(storedPrefix);
+      }
+    };
+    
+    this._documentKeydownHandler = (e) => {
+      // Only handle Escape if our dropdown is open
+      const currentDropdown = document.getElementById(`language-selector-${documentPrefix}dropdown`);
+      if (currentDropdown && e.key === 'Escape') {
+        // Check if dropdown is visible (aria-hidden="false")
+        const isOpen = currentDropdown.getAttribute('aria-hidden') === 'false';
+        if (isOpen) {
+          this.closeDropdown(storedPrefix);
+        }
+      }
+    };
+    
+    // Button click handler
+    button.addEventListener('click', this._buttonClickHandler);
 
-    // Option click handlers
+    // Option click handlers (re-bind each time since options might change)
     const options = dropdown.querySelectorAll('.language-selector__option');
     options.forEach(option => {
-      option.addEventListener('click', (e) => {
+      // Remove old listener if it exists
+      if (option._optionClickHandler) {
+        option.removeEventListener('click', option._optionClickHandler);
+      }
+      option._optionClickHandler = (e) => {
         e.stopPropagation();
         const lang = option.getAttribute('data-lang');
         if (lang) {
           this.selectLanguage(lang);
         }
-      });
+      };
+      option.addEventListener('click', option._optionClickHandler);
     });
 
     // Close dropdown when clicking outside
-    document.addEventListener('click', (e) => {
-      if (!button.contains(e.target) && !dropdown.contains(e.target)) {
-        this.closeDropdown(this.selectorPrefix);
-      }
-    });
+    document.addEventListener('click', this._documentClickHandler);
 
     // Close dropdown on Escape key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        this.closeDropdown(this.selectorPrefix);
-      }
-    });
+    document.addEventListener('keydown', this._documentKeydownHandler);
   }
 
   toggleDropdown(selectorPrefix = '') {
-    const prefix = selectorPrefix ? `${selectorPrefix}-` : '';
-    const button = document.getElementById(`language-selector-${prefix}btn`);
-    const dropdown = document.getElementById(`language-selector-${prefix}dropdown`);
+    // Use provided prefix or fall back to stored prefix
+    const prefix = selectorPrefix || this.selectorPrefix || '';
+    const actualPrefix = prefix ? `${prefix}-` : '';
+    const button = document.getElementById(`language-selector-${actualPrefix}btn`);
+    const dropdown = document.getElementById(`language-selector-${actualPrefix}dropdown`);
     
     if (!button || !dropdown) return;
 
     const isOpen = button.getAttribute('aria-expanded') === 'true';
     
     if (isOpen) {
-      this.closeDropdown();
+      this.closeDropdown(prefix);
     } else {
-      this.openDropdown();
+      this.openDropdown(prefix);
     }
   }
 
@@ -191,8 +238,12 @@ class LanguageSelector {
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
     window.languageSelectorInstance = new LanguageSelector();
+    // Initialize with default prefix (empty string) for main selector
+    window.languageSelectorInstance.init('');
   });
 } else {
   window.languageSelectorInstance = new LanguageSelector();
+  // Initialize with default prefix (empty string) for main selector
+  window.languageSelectorInstance.init('');
 }
 

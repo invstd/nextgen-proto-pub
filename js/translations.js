@@ -38,10 +38,6 @@ const translations = {
       aiAssistantLink: 'AI Assistant',
       searchPlaceholder: 'VIN / VRM / Engine Code / Brand / Model ...'
     },
-    // Footer
-    footer: {
-      company: 'WoW Group | Autocom'
-    },
     // AI Assistant
     aiAssistant: {
       askBadge: 'Ask',
@@ -283,10 +279,6 @@ const translations = {
       aiAssistantLink: 'KI-Assistenten',
       searchPlaceholder: 'FIN / VRM / Motorkennung / Marke / Modell ...'
     },
-    // Footer
-    footer: {
-      company: 'WoW Group | Autocom'
-    },
     // AI Assistant
     aiAssistant: {
       askBadge: 'Fragen',
@@ -527,10 +519,6 @@ const translations = {
       proTipText: 'Hvis du trenger hjelp med kjøretøyvalg, prøv å bruke foto-gjenkjenning med',
       aiAssistantLink: 'KI-assistenten',
       searchPlaceholder: 'VIN / VRM / Motorkode / Merke / Modell ...'
-    },
-    // Footer
-    footer: {
-      company: 'WoW Group | Autocom'
     },
     // AI Assistant
     aiAssistant: {

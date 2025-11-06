@@ -32,18 +32,57 @@ class PasswordAuth {
       this.showPasswordGate();
       this.setupPasswordForm();
       
-      // Initialize password gate language selector after a short delay
-      // to ensure LanguageSelector class is available
-      setTimeout(() => {
-        if (typeof LanguageSelector !== 'undefined') {
-          const gateButton = document.getElementById('language-selector-gate-btn');
-          if (gateButton && !window.languageSelectorGateInstance) {
-            window.languageSelectorGateInstance = new LanguageSelector();
-            window.languageSelectorGateInstance.init('gate-');
-          }
-        }
-      }, 100);
+      // Initialize password gate language selector
+      this.initPasswordGateLanguageSelector();
     }
+  }
+  
+  /**
+   * Initialize password gate language selector
+   * Tries multiple times to ensure it initializes properly
+   */
+  initPasswordGateLanguageSelector() {
+    const tryInit = (attempt = 0) => {
+      // Check if LanguageSelector class is available
+      if (typeof LanguageSelector === 'undefined') {
+        if (attempt < 10) {
+          // Retry if LanguageSelector class not loaded yet
+          setTimeout(() => tryInit(attempt + 1), 100);
+        } else {
+          console.warn('LanguageSelector class not available after 10 attempts');
+        }
+        return;
+      }
+      
+      // Check if gate button exists
+      const gateButton = document.getElementById('language-selector-gate-btn');
+      const gateDropdown = document.getElementById('language-selector-gate-dropdown');
+      const gateCurrent = document.getElementById('language-selector-gate-current');
+      
+      if (!gateButton || !gateDropdown || !gateCurrent) {
+        if (attempt < 5) {
+          // Retry if elements not found yet (DOM might not be ready)
+          setTimeout(() => tryInit(attempt + 1), 100);
+        } else {
+          console.warn('Password gate language selector elements not found after 5 attempts');
+        }
+        return;
+      }
+      
+      // All elements found, initialize
+      // Note: pass 'gate' not 'gate-' because init() adds the dash automatically
+      if (window.languageSelectorGateInstance) {
+        // Re-initialize existing instance with the gate prefix
+        window.languageSelectorGateInstance.init('gate');
+      } else {
+        // Create new instance for gate selector
+        window.languageSelectorGateInstance = new LanguageSelector();
+        window.languageSelectorGateInstance.init('gate');
+      }
+    };
+    
+    // Start initialization attempt
+    tryInit();
   }
   
   /**
@@ -86,8 +125,41 @@ class PasswordAuth {
     // Add class to body to allow CSS to show content and hide gate
     document.body.classList.add('password-authenticated');
     
-    // Language selector should already be initialized, but ensure footer one works
-    // The footer selector uses default IDs (no prefix), so it should work fine
+    // Initialize or re-initialize main language selector after authentication
+    // This ensures it works even if elements were hidden during initial load
+    this.initMainLanguageSelector();
+  }
+  
+  /**
+   * Initialize main language selector after authentication
+   * Re-initializes if already exists, or creates new instance
+   */
+  initMainLanguageSelector() {
+    const tryInit = (attempt = 0) => {
+      if (typeof LanguageSelector !== 'undefined') {
+        const mainButton = document.getElementById('language-selector-btn');
+        if (mainButton) {
+          if (window.languageSelectorInstance) {
+            // Re-initialize existing instance (no prefix for main selector)
+            window.languageSelectorInstance.init('');
+          } else {
+            // Create new instance if it doesn't exist
+            window.languageSelectorInstance = new LanguageSelector();
+            // Note: constructor already calls init(), but we ensure it uses default prefix
+            window.languageSelectorInstance.init('');
+          }
+        } else if (attempt < 5) {
+          // Retry if button not found yet (might be in a component that loads later)
+          setTimeout(() => tryInit(attempt + 1), 100);
+        }
+      } else if (attempt < 10) {
+        // Retry if LanguageSelector class not loaded yet
+        setTimeout(() => tryInit(attempt + 1), 100);
+      }
+    };
+    
+    // Start initialization attempt
+    tryInit();
   }
   
   /**
