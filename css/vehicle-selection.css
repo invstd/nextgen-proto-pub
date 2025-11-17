@@ -820,8 +820,10 @@
 /* New Chat FAB */
 .ai-new-chat-fab {
   position: fixed;
-  bottom: 20px;
-  right: 16px;
+  /* Account for footer height (padding + content ≈ 70-80px) + spacing */
+  /* Use calc with env() for safe area support (env() returns 0px if not supported) */
+  bottom: calc(80px + 20px + env(safe-area-inset-bottom, 0px));
+  right: calc(16px + env(safe-area-inset-right, 0px));
   height: 48px;
   padding: 0 16px;
   background: #333333;
@@ -837,6 +839,14 @@
   font-size: 14px;
   font-weight: 500;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Tablet-specific adjustments */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .ai-new-chat-fab {
+    /* Slightly adjust for tablet viewport */
+    bottom: calc(80px + 16px + env(safe-area-inset-bottom, 0px));
+  }
 }
 
 .ai-new-chat-fab:hover {

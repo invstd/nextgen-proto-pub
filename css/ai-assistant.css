@@ -34,7 +34,8 @@
   top: 0;
   right: -400px; /* Hidden by default */
   width: 400px;
-  height: 100vh;
+  height: 100vh; /* Fallback for browsers that don't support dvh */
+  height: 100dvh; /* Dynamic viewport height - excludes browser UI on mobile */
   background: #1a1a1a; /* Pure dark background */
   border-left: 1px solid #333333;
   box-shadow: -4px 0 20px rgba(0, 0, 0, 0.3);
@@ -136,6 +137,8 @@
   max-width: 960px;
   margin: 0 auto;
   transition: all 0.2s ease;
+  min-width: 0; /* Allow flex children to shrink on tablets */
+  width: 100%; /* Ensure it doesn't overflow container */
 }
 
 .ai-assistant__input-wrapper:focus-within {
@@ -177,6 +180,7 @@
   color: #ffffff;
   outline: none;
   font-family: inherit;
+  min-width: 0; /* Allow input to shrink on tablets */
 }
 
 .ai-assistant__input::placeholder {
@@ -276,7 +280,8 @@
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
+  height: 100vh; /* Fallback for browsers that don't support dvh */
+  height: 100dvh; /* Dynamic viewport height - excludes browser UI on mobile */
   background: rgba(0, 0, 0, 0.5);
   z-index: 999;
   opacity: 0;
@@ -807,7 +812,8 @@
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
+  height: 100vh; /* Fallback for browsers that don't support dvh */
+  height: 100dvh; /* Dynamic viewport height - excludes browser UI on mobile */
   z-index: 1000;
   display: flex;
   align-items: center;
@@ -875,7 +881,8 @@
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
+  height: 100vh; /* Fallback for browsers that don't support dvh */
+  height: 100dvh; /* Dynamic viewport height - excludes browser UI on mobile */
   z-index: 1000;
   display: flex;
   align-items: center;
