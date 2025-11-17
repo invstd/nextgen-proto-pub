@@ -791,24 +791,6 @@
 }
 
 /* Camera FAB */
-.ai-camera-fab {
-  position: fixed;
-  bottom: 80px;
-  right: 16px;
-  width: 48px;
-  height: 48px;
-  background: #333333;
-  border: 1px solid #555555;
-  border-radius: 50%;
-  color: #ffffff;
-  cursor: pointer;
-  z-index: 30;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
-}
 
 .ai-camera-fab:hover {
   background: #444444;
@@ -817,13 +799,51 @@
   box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.4);
 }
 
-/* New Chat FAB */
-.ai-new-chat-fab {
+/* AI FABs Container - Groups camera and new chat buttons together */
+.ai-fabs-container {
   position: fixed;
   /* Account for footer height (padding + content ≈ 70-80px) + spacing */
-  /* Use calc with env() for safe area support (env() returns 0px if not supported) */
   bottom: calc(80px + 20px + env(safe-area-inset-bottom, 0px));
   right: calc(16px + env(safe-area-inset-right, 0px));
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-end;
+}
+
+/* Tablet-specific adjustments */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .ai-fabs-container {
+    /* Slightly adjust for tablet viewport */
+    bottom: calc(80px + 16px + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+/* Camera FAB - now positioned relative to container */
+.ai-camera-fab {
+  position: relative;
+  bottom: auto;
+  right: auto;
+  width: 48px;
+  height: 48px;
+  background: #333333;
+  border: 1px solid #555555;
+  border-radius: 50%;
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* New Chat FAB - now positioned relative to container */
+.ai-new-chat-fab {
+  position: relative;
+  bottom: auto;
+  right: auto;
   height: 48px;
   padding: 0 16px;
   background: #333333;
@@ -831,7 +851,6 @@
   border-radius: 24px;
   color: #ffffff;
   cursor: pointer;
-  z-index: 30;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   align-items: center;
@@ -839,14 +858,6 @@
   font-size: 14px;
   font-weight: 500;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
-}
-
-/* Tablet-specific adjustments */
-@media (min-width: 768px) and (max-width: 1024px) {
-  .ai-new-chat-fab {
-    /* Slightly adjust for tablet viewport */
-    bottom: calc(80px + 16px + env(safe-area-inset-bottom, 0px));
-  }
 }
 
 .ai-new-chat-fab:hover {
