@@ -802,8 +802,8 @@
 /* AI FABs Container - Groups camera and new chat buttons together */
 .ai-fabs-container {
   position: fixed;
-  /* Account for footer height (padding + content ≈ 70-80px) + spacing */
-  bottom: calc(80px + 20px + env(safe-area-inset-bottom, 0px));
+  /* Account for footer height + spacing */
+  bottom: calc(20px + 16px + env(safe-area-inset-bottom, 0px));
   right: calc(16px + env(safe-area-inset-right, 0px));
   z-index: 30;
   display: flex;
@@ -816,7 +816,7 @@
 @media (min-width: 768px) and (max-width: 1024px) {
   .ai-fabs-container {
     /* Slightly adjust for tablet viewport */
-    bottom: calc(80px + 16px + env(safe-area-inset-bottom, 0px));
+    bottom: calc(20px + 16px + env(safe-area-inset-bottom, 0px));
   }
 }
 
